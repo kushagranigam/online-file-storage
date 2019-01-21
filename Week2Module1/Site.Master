@@ -31,8 +31,14 @@
                             Hi,
                             <asp:Literal ID="username" runat="server"></asp:Literal>
                             <br />
-                            <asp:Button ID="logoutButton" runat="server" BorderStyle="None" CssClass="menu" 
-                                onclick="logoutButton_Click" Text="Logout" />
+                            <asp:Button ID="changePassButton" runat="server" BackColor="#BFFFFF" 
+                                BorderColor="#BFFFFF" BorderStyle="Solid" BorderWidth="3px" 
+                                CssClass="menu buttons" onclick="changePassButton_Click" 
+                                Text="Change Password" />
+                            &nbsp;&nbsp;&nbsp;
+                            <asp:Button ID="logoutButton" runat="server" BorderStyle="Solid" CssClass=" menu buttons" 
+                                onclick="logoutButton_Click" Text="Logout" BackColor="#B0B0FF" 
+                                BorderColor="#B0B0FF" BorderWidth="3px" />
                         </asp:View>
                         <asp:View ID="loggedOut" runat="server">
                             <asp:Menu ID="LoginMenu" runat="server" CssClass="menu" 

@@ -22,15 +22,6 @@ namespace Week2Module1 {
         protected global::System.Web.UI.WebControls.Panel navigationPanel;
         
         /// <summary>
-        /// hideNavigation control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button hideNavigation;
-        
-        /// <summary>
         /// DirectoryTree control.
         /// </summary>
         /// <remarks>
@@ -67,6 +58,15 @@ namespace Week2Module1 {
         protected global::System.Web.UI.WebControls.TextBox AddressBar;
         
         /// <summary>
+        /// DriveContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel DriveContent;
+        
+        /// <summary>
         /// optionsExtended control.
         /// </summary>
         /// <remarks>
@@ -76,13 +76,31 @@ namespace Week2Module1 {
         protected global::System.Web.UI.WebControls.Panel optionsExtended;
         
         /// <summary>
-        /// uploadFile control.
+        /// OptionViews control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload uploadFile;
+        protected global::System.Web.UI.WebControls.MultiView OptionViews;
+        
+        /// <summary>
+        /// UploadView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.View UploadView;
+        
+        /// <summary>
+        /// uploadFilename control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload uploadFilename;
         
         /// <summary>
         /// cancelUploadButton control.
@@ -101,6 +119,114 @@ namespace Week2Module1 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button uploadFileButton;
+        
+        /// <summary>
+        /// NewFolderView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.View NewFolderView;
+        
+        /// <summary>
+        /// folderName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox folderName;
+        
+        /// <summary>
+        /// cancelFolderButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button cancelFolderButton;
+        
+        /// <summary>
+        /// createFolderButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button createFolderButton;
+        
+        /// <summary>
+        /// renameView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.View renameView;
+        
+        /// <summary>
+        /// NewName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox NewName;
+        
+        /// <summary>
+        /// cancelRenameButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button cancelRenameButton;
+        
+        /// <summary>
+        /// renameItemButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button renameItemButton;
+        
+        /// <summary>
+        /// deleteView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.View deleteView;
+        
+        /// <summary>
+        /// deleteMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal deleteMessage;
+        
+        /// <summary>
+        /// cancelDelete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button cancelDelete;
+        
+        /// <summary>
+        /// deleteItemButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button deleteItemButton;
         
         /// <summary>
         /// DriveOptions control.
@@ -130,42 +256,6 @@ namespace Week2Module1 {
         protected global::System.Web.UI.WebControls.ImageButton newFolderButton;
         
         /// <summary>
-        /// renameButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton renameButton;
-        
-        /// <summary>
-        /// selectButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton selectButton;
-        
-        /// <summary>
-        /// deleteButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton deleteButton;
-        
-        /// <summary>
-        /// ImageButton5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImageButton5;
-        
-        /// <summary>
         /// infoPanel control.
         /// </summary>
         /// <remarks>
@@ -184,6 +274,15 @@ namespace Week2Module1 {
         protected global::System.Web.UI.WebControls.Image selectedItem;
         
         /// <summary>
+        /// itemType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal itemType;
+        
+        /// <summary>
         /// infoDescription control.
         /// </summary>
         /// <remarks>
@@ -191,5 +290,32 @@ namespace Week2Module1 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel infoDescription;
+        
+        /// <summary>
+        /// itemActions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel itemActions;
+        
+        /// <summary>
+        /// renameButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton renameButton;
+        
+        /// <summary>
+        /// deleteButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton deleteButton;
     }
 }

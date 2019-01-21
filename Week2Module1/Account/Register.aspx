@@ -16,7 +16,8 @@
             &nbsp;<asp:TextBox ID="name" runat="server" placeholder="Name" Height="25px" 
                 Width="250px" CausesValidation="True"></asp:TextBox>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
-                ErrorMessage="*" ForeColor="Red" Height="25px" ControlToValidate="name"></asp:RequiredFieldValidator>
+                ErrorMessage="*" ForeColor="Red" Height="25px" ControlToValidate="name" 
+                ValidationGroup="validateContent"></asp:RequiredFieldValidator>
             <br />
             <br />
 
@@ -27,20 +28,19 @@
                 Height="25px" Width="250px"></asp:TextBox>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
                 ErrorMessage="*" ForeColor="Red" Height="25px" 
-                ControlToValidate="dateOfBirth"></asp:RequiredFieldValidator>
+                ControlToValidate="dateOfBirth" ValidationGroup="validateContent"></asp:RequiredFieldValidator>
 
             <div style="position: absolute; display: inline; text-align: left;">
 
             <asp:ImageButton ID="calendarButton" runat="server" 
-                ImageUrl="~/Images/calendar.png" onclick="calendarButton_Click" Height="25px" 
+                ImageUrl="~/Images/calendar.png" onclick="calendarButton_Click" Height="25px"
                     Width="25px" />
 
                 <asp:Calendar ID="calendar" runat="server" BackColor="White" 
                     BorderColor="Gray" DayNameFormat="Shortest" 
                     Font-Names="Century Gothic" Font-Size="10pt" ForeColor="Black" 
                     onselectionchanged="calendar_SelectionChanged" CssClass="hide calendar" 
-                    Visible="False" Height="152px" NextPrevFormat="FullMonth" 
-                    TitleFormat="Month" Width="151px">
+                    Visible="False" Height="152px" NextPrevFormat="ShortMonth">
                     <DayHeaderStyle BackColor="#CCCCCC" Font-Bold="True" Font-Size="7pt" 
                         ForeColor="#333333" Height="10pt" />
                     <DayStyle Width="14%" />
@@ -68,7 +68,8 @@
                 <asp:ListItem Value="F">Her</asp:ListItem>
             </asp:RadioButtonList>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" 
-                ErrorMessage="*" ForeColor="Red" Height="25px" ControlToValidate="gender"></asp:RequiredFieldValidator>
+                ErrorMessage="*" ForeColor="Red" Height="25px" ControlToValidate="gender" 
+                ValidationGroup="validateContent"></asp:RequiredFieldValidator>
 
             <br />
             <br />
@@ -80,7 +81,7 @@
                 Height="25px" Width="250px"></asp:TextBox>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" 
                 ErrorMessage="*" ForeColor="Red" Height="25px" 
-                ControlToValidate="userName"></asp:RequiredFieldValidator>
+                ControlToValidate="userName" ValidationGroup="validateContent"></asp:RequiredFieldValidator>
 
             <br />
             <br />
@@ -91,7 +92,8 @@
             &nbsp;<asp:TextBox ID="emailID" runat="server" placeholder="Email ID" 
                 Height="25px" Width="250px"></asp:TextBox>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" 
-                ErrorMessage="*" ForeColor="Red" Height="25px" ControlToValidate="emailID"></asp:RequiredFieldValidator>
+                ErrorMessage="*" ForeColor="Red" Height="25px" ControlToValidate="emailID" 
+                ValidationGroup="validateContent"></asp:RequiredFieldValidator>
 
             <br />
             <br />
@@ -103,7 +105,7 @@
                 Height="25px" Width="250px" style="margin-bottom: 0px"></asp:TextBox>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" 
                 ErrorMessage="*" ForeColor="Red" Height="25px" 
-                ControlToValidate="password"></asp:RequiredFieldValidator>
+                ControlToValidate="password" ValidationGroup="validateContent"></asp:RequiredFieldValidator>
             <br />
             <br />
 
@@ -112,9 +114,10 @@
 
             &nbsp;<asp:TextBox ID="confirmPassword" runat="server" 
                 placeholder="Confirm Password" Height="25px" Width="250px"></asp:TextBox>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" 
+            <asp:CompareValidator ID="CompareValidator1" runat="server" 
+                ControlToCompare="password" ControlToValidate="confirmPassword" 
                 ErrorMessage="*" ForeColor="Red" Height="25px" 
-                ControlToValidate="confirmPassword"></asp:RequiredFieldValidator>
+                ValidationGroup="validateContent"></asp:CompareValidator>
             <br />
             <br />
 
@@ -126,7 +129,9 @@
 
             <asp:Button ID="registerButton" runat="server" Text="Register" 
                 onclick="registerButton_Click" BackColor="#CCFF66" BorderColor="#CCFF66" 
-                BorderStyle="Solid" BorderWidth="5px" CssClass="buttons" />
+                BorderStyle="Solid" BorderWidth="5px" CssClass="buttons" 
+                ValidationGroup="validateContent" />
+            <br />
         </div>
     </div>
 </asp:Content>

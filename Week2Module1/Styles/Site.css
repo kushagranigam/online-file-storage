@@ -306,6 +306,7 @@ div.accountInfo
 .buttons
 {
     border-radius: 3px;
+    height: 32px;
 }
 
 .garbage {

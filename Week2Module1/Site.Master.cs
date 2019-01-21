@@ -34,5 +34,10 @@ namespace Week2Module1
         {
 
         }
+
+        protected void changePassButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Account/ChangePassword.aspx");
+        }
     }
 }
