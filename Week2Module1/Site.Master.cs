@@ -27,6 +27,7 @@ namespace Week2Module1
             Session.RemoveAll();
             Session.Abandon();
             loginBox.ActiveViewIndex = 1;
+            Response.Redirect("~/Default.aspx");
         }
 
         protected void loginBox_ActiveViewChanged(object sender, EventArgs e)

@@ -12,9 +12,10 @@
 <body>
     <form runat="server">
     <div class="page">
-        <div class="header">
-            <div class="clear hideSkiplink">
-                <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false" IncludeStyleBlock="false" Orientation="Horizontal">
+        <div class="header clear" style="overflow: auto;">
+            <div class="left" style="overflow: auto;">
+                <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" 
+                    EnableViewState="false" IncludeStyleBlock="false" Orientation="Horizontal">
                     <DynamicHoverStyle CssClass="menuHover" Height="80px" />
                     <DynamicSelectedStyle CssClass="menuSelected" Height="100px" />
                     <Items>
@@ -22,26 +23,31 @@
                         <asp:MenuItem NavigateUrl="~/About.aspx" Text="About"/>
                     </Items>
                 </asp:Menu>
-                <asp:MultiView ID="loginBox" runat="server" ActiveViewIndex="0" 
-                    onactiveviewchanged="loginBox_ActiveViewChanged">
-                    <asp:View ID="loggedIn" runat="server">
-                        Hi,
-                        <asp:Literal ID="username" runat="server"></asp:Literal>
-                        <br />
-                        <asp:Button ID="logoutButton" runat="server" BorderStyle="None" CssClass="menu" 
-                            onclick="logoutButton_Click" Text="Logout" />
-                    </asp:View>
-                    <asp:View ID="loggedOut" runat="server">
-                        <asp:Menu ID="Menu1" runat="server" CssClass="menu" Orientation="Horizontal">
-                            <Items>
-                                <asp:MenuItem NavigateUrl="~/Account/Login.aspx" Text="Log In" Value="Log In">
-                                </asp:MenuItem>
-                                <asp:MenuItem NavigateUrl="~/Account/Register.aspx" Text="Register" 
-                                    Value="Register"></asp:MenuItem>
-                            </Items>
-                        </asp:Menu>
-                    </asp:View>
-                </asp:MultiView>
+                </div>
+                <div class="right" style="overflow: auto">
+                    <asp:MultiView ID="loginBox" runat="server" ActiveViewIndex="0" 
+                        onactiveviewchanged="loginBox_ActiveViewChanged">
+                        <asp:View ID="loggedIn" runat="server">
+                            Hi,
+                            <asp:Literal ID="username" runat="server"></asp:Literal>
+                            <br />
+                            <asp:Button ID="logoutButton" runat="server" BorderStyle="None" CssClass="menu" 
+                                onclick="logoutButton_Click" Text="Logout" />
+                        </asp:View>
+                        <asp:View ID="loggedOut" runat="server">
+                            <asp:Menu ID="LoginMenu" runat="server" CssClass="menu" 
+                                EnableViewState="false" IncludeStyleBlock="false" Orientation="Horizontal">
+                                <DynamicHoverStyle CssClass="menuHover" Height="80px" />
+                                <DynamicSelectedStyle CssClass="menuSelected" Height="100px" />
+                                <Items>
+                                    <asp:MenuItem NavigateUrl="~/Account/Login.aspx" Text="Log In" Value="Log In">
+                                    </asp:MenuItem>
+                                    <asp:MenuItem NavigateUrl="~/Account/Register.aspx" Text="Register" 
+                                        Value="Register"></asp:MenuItem>
+                                </Items>
+                            </asp:Menu>
+                        </asp:View>
+                    </asp:MultiView>
             </div>
         </div>
         <div class="main">
@@ -49,6 +55,7 @@
         </div>
     </div>
     <div class="footer">
+        
     </div>
     </form>
 </body>

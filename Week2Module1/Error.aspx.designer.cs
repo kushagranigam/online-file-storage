@@ -22,12 +22,21 @@ namespace Week2Module1 {
         protected global::System.Web.UI.WebControls.Panel PageContent;
         
         /// <summary>
-        /// TextBox1 control.
+        /// Back control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.Button Back;
+        
+        /// <summary>
+        /// Home control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Home;
     }
 }

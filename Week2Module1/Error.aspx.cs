@@ -13,6 +13,16 @@ namespace Week2Module1
         {
             if (Request.Params["error"] != null)
                 PageContent.Controls.Add(new LiteralControl(Request.Params["error"].ToString()));
+            Back.PostBackUrl = Request.UrlReferrer.ToString();
+        }
+
+        protected void homeButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Default.aspx", true);
+        }
+
+        protected void backButton_Click(object sender, EventArgs e)
+        {
         }
     }
 }

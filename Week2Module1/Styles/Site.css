@@ -8,7 +8,11 @@ body
     font-family: "Helvetica Neue", "Lucida Grande", "Segoe UI", Arial, Helvetica, Verdana, sans-serif;
     margin: 0px;
     padding: 0px;
-    color: #696969;
+}
+
+a
+{
+    text-decoration: none;
 }
 
 a:link, a:visited
@@ -89,15 +93,17 @@ first child of the left and right table columns */
 
 .page
 {
-    width: 960px;
     background-color: #fff;
     margin: 20px auto 0px auto;
     border: 1px solid #496077;
+    min-height: 500px;
+    overflow: auto;
 }
 
 .header
 {
     position: relative;
+    color: White;
     margin: 0px;
     padding: 0px;
     background: #4b6c9e;
@@ -134,23 +140,25 @@ first child of the left and right table columns */
 
 .footer
 {
-    color: #4e5766;
-    padding: 8px 0px 0px 0px;
+    background-color: black;
+    box-sizing: border-box;
+    color: white;
+    clear: both;
+    padding: 8px;
     margin: 0px auto;
     text-align: center;
     line-height: normal;
+    overflow: auto;
+}
+footer a,
+footer * a
+{
+    color: white !important;
 }
 
 
 /* TAB MENU   
 ----------------------------------------------------------*/
-
-div.hideSkiplink
-{
-    background-color: #3a4f63;
-    width: 100%;
-}
-
 div.menu
 {
     padding: 4px 0px 4px 8px;
@@ -166,7 +174,6 @@ div.menu ul
 
 div.menu ul li a, div.menu ul li a:visited
 {
-    background-color: #465c71;
     border: 1px #4e667d solid;
     color: #dde4ec;
     display: block;
@@ -294,4 +301,43 @@ div.accountInfo
 {
     text-align: right;
     padding-right: 10px;
+}
+
+.buttons
+{
+    border-radius: 3px;
+}
+
+.garbage {
+    display: none;
+}
+
+.garbage[style*=visible] + input,
+.garbage[style*=visible] + select,
+.garbage[style*=visible] + textarea {
+    background-color: #ffcccc;
+    border: 1px solid #ff0000;
+}
+
+.left
+{
+    box-sizing: border-box;
+    float: left;
+}
+
+.right
+{
+    box-sizing: border-box;
+    float: right;
+}
+
+.bottom
+{
+    bottom: 30px;
+}
+
+.container
+{
+    padding: 3px;
+    display: inline-block;
 }

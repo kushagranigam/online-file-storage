@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Configuration;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,6 @@ namespace Week2Module1.Account
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
         }
 
         protected void rmImage_Click(object sender, ImageClickEventArgs e)

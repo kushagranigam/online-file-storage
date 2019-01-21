@@ -16,7 +16,8 @@ namespace Week2Module1.Account
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            if(Request.UrlReferrer != null)
+                Back.PostBackUrl = Request.UrlReferrer.ToString();
         }
         
         protected void calendar_SelectionChanged(object sender, EventArgs e)
@@ -25,7 +26,7 @@ namespace Week2Module1.Account
             calendar.Visible = false;
         }
 
-        protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
+        protected void calendarButton_Click(object sender, ImageClickEventArgs e)
         {
             if (calendar.Visible == true)
                 calendar.Visible = false;
@@ -71,8 +72,7 @@ namespace Week2Module1.Account
             }
             catch (Exception err)
             {
-                Response.Write(err);
-                //Response.Redirect("~/Error.aspx?error=" + Server.UrlEncode(err.ToString()));
+                Response.Redirect("~/Error.aspx?error=" + Server.UrlEncode(err.ToString()));
             }
             finally
             {
