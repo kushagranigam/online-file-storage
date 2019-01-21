@@ -31,7 +31,6 @@ p
 {
     margin-bottom: 10px;
     line-height: 1.6em;
-    font-style: italic;
 }
 
 
@@ -119,9 +118,8 @@ first child of the left and right table columns */
 
 .main
 {
-    padding: 10px;
-    margin: 0px;
-    text-align: center;
+    padding: 0px 12px;
+    margin: 12px 8px 8px 8px;
 }
 
 .leftCol
@@ -147,8 +145,8 @@ first child of the left and right table columns */
 
 div.hideSkiplink
 {
-    background-color: #3a4f63;
-    width: 100%;
+    background-color:#3a4f63;
+    width:100%;
 }
 
 div.menu

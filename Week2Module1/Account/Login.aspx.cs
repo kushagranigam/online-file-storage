@@ -33,6 +33,7 @@ namespace Week2Module1.Account
 
         protected void loginButton_Click(object sender, EventArgs e)
         {
+            MultiView loginBox = (MultiView)Master.FindControl("loginBox");
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["database"].ConnectionString);
             try
             {
@@ -51,7 +52,8 @@ namespace Week2Module1.Account
                             errorText.Text = "Logging In.. Please Wait";
                             Session["handle"] = result[0].ToString();
                             Session["userName"] = userName.Text;
-                            Response.Redirect("~/Default.aspx");
+                            loginBox.ActiveViewIndex = 0;
+                            Response.Redirect("~/MyDrive.aspx");
                         }
                         else
                         {

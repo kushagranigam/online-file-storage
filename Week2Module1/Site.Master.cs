@@ -14,8 +14,24 @@ namespace Week2Module1
             if (Session["handle"] != null)
             {
                 username.Text = (String)Session["handle"];
-                Session.Abandon();
+                loginBox.ActiveViewIndex = 0;
             }
+            else
+            {
+                loginBox.ActiveViewIndex = 1;
+            }
+        }
+
+        protected void logoutButton_Click(object sender, EventArgs e)
+        {
+            Session.RemoveAll();
+            Session.Abandon();
+            loginBox.ActiveViewIndex = 1;
+        }
+
+        protected void loginBox_ActiveViewChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

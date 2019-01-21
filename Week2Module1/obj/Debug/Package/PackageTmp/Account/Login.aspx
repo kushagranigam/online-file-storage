@@ -2,7 +2,7 @@
     CodeBehind="Login.aspx.cs" Inherits="Week2Module1.Account.Login" %>
 
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
-    <script type="text/javascript">
+<script type="text/javascript">
     function rememberMe(){
         var rm = Document.getElementById("rememberMe");
         if(rm.Checked == "checked")
@@ -21,22 +21,20 @@
                 ImageUrl="~/Images/userNotFilled.png" Width="20px" />
 
             <asp:TextBox ID="userName" runat="server" 
-                placeholder="Enter username or emailID" Height="25px" Width="250px"></asp:TextBox>
+                placeholder="Enter username or emailID" Height="27px" Width="209px"></asp:TextBox>
 
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
-                ControlToValidate="userName" ErrorMessage="*" ForeColor="Red" 
-                Height="25px"></asp:RequiredFieldValidator>
+                ControlToValidate="userName" ErrorMessage="*" ForeColor="Red"></asp:RequiredFieldValidator>
             <br />
 
             <asp:Image ID="passwordImage" runat="server" Height="20px" 
                 ImageUrl="~/Images/passNotFilled.png" Width="20px" />
 
             <asp:TextBox ID="password" runat="server" placeholder="Enter password" 
-                TextMode="Password" Height="25px" ViewStateMode="Enabled" Width="250px"></asp:TextBox>
+                TextMode="Password" Height="27px" ViewStateMode="Enabled" Width="206px"></asp:TextBox>
 
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
-                ControlToValidate="password" ErrorMessage="*" ForeColor="Red" 
-                Height="25px"></asp:RequiredFieldValidator>
+                ControlToValidate="password" ErrorMessage="*" ForeColor="Red"></asp:RequiredFieldValidator>
             <br />
 
             <asp:Literal ID="errorText" runat="server"></asp:Literal>

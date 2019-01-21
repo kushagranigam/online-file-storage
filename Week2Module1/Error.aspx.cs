@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,16 +7,12 @@ using System.Web.UI.WebControls;
 
 namespace Week2Module1
 {
-    public partial class _Default : System.Web.UI.Page
+    public partial class Error : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
-        }
-
-        protected void search_TextChanged(object sender, EventArgs e)
-        {
-
+            if (Request.Params["error"] != null)
+                PageContent.Controls.Add(new LiteralControl(Request.Params["error"].ToString()));
         }
     }
 }
