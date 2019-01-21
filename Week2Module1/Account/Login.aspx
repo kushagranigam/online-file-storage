@@ -15,7 +15,7 @@
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
 
     <div id="formContainer" 
-    style="overflow: auto; display: block; width: 425px; margin: auto; height: 200">
+    style="overflow: auto; display: block; width: 425px; margin: auto; height: 200px;">
         <div id="form" 
             style="padding: 4px; overflow: auto; float: left; border-right-style: solid; border-right-width: medium; border-right-color: #66CCFF;">
 
@@ -23,8 +23,7 @@
                 ImageUrl="~/Images/userNotFilled.png" Width="20px" />
 
             <asp:TextBox ID="userName" runat="server" 
-                placeholder="Enter username or emailID" Height="25px" Width="250px" 
-                CausesValidation="True"></asp:TextBox>
+                placeholder="Enter username or emailID" Height="25px" Width="250px"></asp:TextBox>
 
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
                 ControlToValidate="userName" ErrorMessage="*" ForeColor="Red" Height="25px"></asp:RequiredFieldValidator>
@@ -35,8 +34,7 @@
                 ImageUrl="~/Images/passNotFilled.png" Width="20px" />
 
             <asp:TextBox ID="password" runat="server" placeholder="Enter password" 
-                TextMode="Password" Height="25px" ViewStateMode="Enabled" Width="250px" 
-                CausesValidation="True"></asp:TextBox>
+                TextMode="Password" Height="25px" ViewStateMode="Enabled" Width="250px"></asp:TextBox>
 
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
                 ControlToValidate="password" ErrorMessage="*" ForeColor="Red" Height="25px"></asp:RequiredFieldValidator>

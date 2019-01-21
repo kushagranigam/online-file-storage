@@ -15,6 +15,8 @@ namespace Week2Module1.Account
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if(Session["handle"] != null)
+                Response.Redirect("~/Error.aspx?error="+Server.UrlEncode("You are already logged in!!"));
         }
 
         protected void rmImage_Click(object sender, ImageClickEventArgs e)

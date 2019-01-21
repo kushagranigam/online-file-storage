@@ -12,8 +12,7 @@ namespace Week2Module1
 {
     public static class PathStore
     {
-        static String path;
-        static String action;
+        static String path, action, root ,relative;
         public static String currentPath
         {
             get
@@ -36,24 +35,57 @@ namespace Week2Module1
                 action = value;
             }
         }
+        public static String basePath
+        {
+            get
+            {
+                return root;
+            }
+            set
+            {
+                root = value;
+            }
+        }
+        public static String relativePath
+        {
+            get
+            {
+                return relative;
+            }
+            set
+            {
+                relative = value;
+            }
+        }
     }
 
     public partial class MyDrive : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
-        {            
-            String FolderName = String.Empty;
-
-            if(Session["handle"] != null)
-                FolderName = Session["handle"].ToString().Replace(' ', '_');
-            String path = FolderName + @"\";
-            if (!Page.IsPostBack)
+        {
+            if (Session["handle"] != null)
             {
-                PathStore.currentPath = String.Copy(Server.MapPath("~").ToString() + @"Directories\" + FolderName);
-                createNavPan(PathStore.currentPath, null, 'n');
+                String FolderName = String.Empty;
+                FolderName = Session["handle"].ToString().Replace(' ', '_');
+                PathStore.basePath = PathStore.relativePath = "~/Directories/" + FolderName;
+                if (!Page.IsPostBack)
+                {
+                    PathStore.currentPath = String.Copy(Server.MapPath("~").ToString() + @"Directories\" + FolderName);
+                    DirectoryInfo userFolder = new DirectoryInfo(PathStore.currentPath);
+                    if (!userFolder.Exists)
+                    {
+                        DirectoryInfo create = new DirectoryInfo(Server.MapPath("~").ToString() + @"Directories\");
+                        create.CreateSubdirectory(FolderName);
+                    }
+                    createNavPan(PathStore.currentPath, null, 'n', null, 0);
+                    AddressBar.Text = @"\";
+                }
+                addDirectory();
             }
-            addDirectory();
-            AddressBar.Text = path;
+            else
+            {
+                Response.Redirect("~/Default.aspx");
+            }
         }
         protected void driveButton_Command(object sender, CommandEventArgs e)
         {
@@ -156,11 +188,10 @@ namespace Week2Module1
                     }
                     
                     fileContainer.Controls.Add(file);
-                    LinkButton name = new LinkButton();
+                    HyperLink name = new HyperLink();
                     name.Text = files.Name;
-                    name.Command += itemClick_Command;
-                    name.CommandArgument = "File";
-                    name.CommandName = files.Name;
+                    name.Target = "_blank";
+                    name.NavigateUrl = PathStore.relativePath + "/" + files.Name;
                     name.Width = 80;
                     fileContainer.Controls.Add(new LiteralControl("<br/>"));
                     fileContainer.Controls.Add(name);
@@ -177,8 +208,12 @@ namespace Week2Module1
                 Response.Write(err.ToString());
             }
         }
-        void createNavPan(String root, String node, char isNode)
+
+
+        void createNavPan(String root, String valuePath, char isNode, String folderName, int chk)
         {
+            if (chk == 1)
+                PathStore.relativePath += ("/" + folderName);
             DirectoryInfo MyDirectory = new DirectoryInfo(root);
             try
             {
@@ -191,11 +226,12 @@ namespace Week2Module1
                     newDirectory.Text = folder.Name.ToString().Replace("_"," ");
                     newDirectory.SelectAction = TreeNodeSelectAction.SelectExpand;
                     newDirectory.ImageUrl = "Images/navfolder.png";
+                    newDirectory.Value = folder.Name;
                     if(isNode != 'y')
                         DirectoryTree.Nodes.Add(newDirectory);
                     else
-                        DirectoryTree.FindNode(node).ChildNodes.Add(newDirectory);
-                    createNavPan(root+"/"+folder.Name, newDirectory.ValuePath.ToString(), 'y');
+                        DirectoryTree.FindNode(valuePath).ChildNodes.Add(newDirectory);
+                    createNavPan(root + @"\" + folder.Name, newDirectory.ValuePath, 'y', folder.Name, 1);
                 }
 
                 foreach(FileInfo file in MyFiles)
@@ -204,10 +240,23 @@ namespace Week2Module1
                     newFile.Text = file.Name;
                     newFile.SelectAction = TreeNodeSelectAction.Select;
                     newFile.ImageUrl = "Images/navfile.png";
-                    if(isNode != 'y')
-                            DirectoryTree.Nodes.Add(newFile);
+                    newFile.Value = "File";
+                    newFile.Target = "_blank";
+                    if (isNode != 'y')
+                    {
+                        newFile.NavigateUrl = PathStore.basePath + "/" + file.Name;
+                        DirectoryTree.Nodes.Add(newFile);
+                    }
                     else
-                        DirectoryTree.FindNode(node).ChildNodes.Add(newFile);
+                    {
+                        newFile.NavigateUrl = PathStore.relativePath + "/" + file.Name;
+                        DirectoryTree.FindNode(valuePath).ChildNodes.Add(newFile);
+                    }
+                }
+                int rm = PathStore.relativePath.LastIndexOf("/" + folderName);
+                if (rm != -1 && chk == 1)
+                {
+                    PathStore.relativePath = PathStore.relativePath.Remove(rm, ("/" + folderName).Length);
                 }
             }
             catch (Exception err)
@@ -229,7 +278,7 @@ namespace Week2Module1
             {
                 try
                 {
-                    uploadFilename.SaveAs(PathStore.currentPath + uploadFilename.FileName);
+                    uploadFilename.SaveAs(PathStore.currentPath + @"\" + uploadFilename.FileName);
                     return 0;
                 }
                 catch (Exception err)
@@ -238,7 +287,10 @@ namespace Week2Module1
                     return 1;
                 }
             }
-            return -1;
+            else
+            {
+                return -1;
+            }
         }
 
         int createFolder()
@@ -288,7 +340,7 @@ namespace Week2Module1
                 {
                     DirectoryInfo deleteFolder = new DirectoryInfo(PathStore.currentPath + @"\" + selectedItem.AlternateText);
                     if (deleteFolder.Exists)
-                        deleteFolder.Delete();
+                        deleteFolder.Delete(true);
                 }
                 return 0;
             }
@@ -305,25 +357,25 @@ namespace Week2Module1
             {
                 case "upload":
                     responseCode = uploadFile();
-                    if (responseCode == 0)
+                    if (responseCode == -1)
                         Response.Redirect("~/Error.aspx?error="+Server.UrlEncode("Unable to upload!"));
                     Response.Redirect(Request.UrlReferrer.ToString());
                     break;
                 case "newFolder":
                     responseCode = createFolder();
-                    if (responseCode == 0)
+                    if (responseCode == -1)
                         Response.Redirect("~/Error.aspx?error=" + Server.UrlEncode("Unable to create folder!"));
                     Response.Redirect(Request.UrlReferrer.ToString());
                     break;
                 case "rename":
                     responseCode = renameItem();
-                    if (responseCode != 0)
+                    if (responseCode == -1)
                         Response.Redirect("~/Error.aspx?error="+Server.UrlEncode("Unable to rename!"));
                     Response.Redirect(Request.UrlReferrer.ToString());
                     break;
                 case "delete":
                     responseCode = deleteItem();
-                    if(responseCode != 0)
+                    if(responseCode == -1)
                         Response.Redirect("~/Error.aspx?error="+Server.UrlEncode("Unable to delete!"));
                     Response.Redirect(Request.UrlReferrer.ToString());
                     break;
@@ -342,9 +394,6 @@ namespace Week2Module1
                     PathStore.currentPath = PathStore.currentPath + @"\" + e.CommandName.ToString();
                     addDirectory();
                     break;
-                case "File":
-                    Response.AddHeader("content-disposition","inline;filename="+e.CommandName.ToString());
-                    break;
                 default:
                     break;
             }
@@ -354,6 +403,23 @@ namespace Week2Module1
         {
             selectedItem.AlternateText = e.CommandName;
             itemType.Text = e.CommandArgument.ToString();
+            itemName.Text = e.CommandName;
+            ImageButton i = sender as ImageButton;
+            selectedItem.ImageUrl = i.ImageUrl;
         }
+
+        protected void DirectoryTree_SelectedNodeChanged(object sender, EventArgs e)
+        {
+            PathStore.currentPath = Server.MapPath(PathStore.basePath + "/" + DirectoryTree.SelectedNode.ValuePath.Replace("/",@"\"));
+            AddressBar.Text = DirectoryTree.SelectedNode.NavigateUrl;
+            addDirectory();
+        }
+
+        protected void home_Command(object sender, CommandEventArgs e)
+        {
+            PathStore.currentPath = Server.MapPath(PathStore.basePath);
+            addDirectory();
+        }
+
     }
 }

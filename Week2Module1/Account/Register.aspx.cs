@@ -46,7 +46,7 @@ namespace Week2Module1.Account
                 n = userUpdate.ExecuteNonQuery();
                 if (n > 0)
                 {
-                    SqlCommand findUserId = new SqlCommand("select userId from users where name=\'" + name.Text + "\' and emailId=\'" + emailID.Text + "\' and dob=\'" + calendar.SelectedDate.ToString("d") + "\'", conn);
+                    SqlCommand findUserId = new SqlCommand("select userId, name from users where name=\'" + name.Text + "\' and emailId=\'" + emailID.Text + "\' and dob=\'" + calendar.SelectedDate.ToString("d") + "\'", conn);
 
                     SqlDataReader userId = null;
                     userId = findUserId.ExecuteReader();
@@ -56,9 +56,10 @@ namespace Week2Module1.Account
                     n = loginUpdate.ExecuteNonQuery();
                     if (n > 0)
                     {
-                        DirectoryInfo UserDirectory = new DirectoryInfo(Server.MapPath("~") + @"Directories\");
-                        UserDirectory.CreateSubdirectory(name.Text.ToString().Replace(" ", "_"));
-                        Response.Redirect("~/Account/Login.aspx");
+                        DirectoryInfo UserDirectory = new DirectoryInfo(Server.MapPath("~") + @"\Directories\");
+                        String Folder = name.Text.Replace(" ","_");
+                        UserDirectory.CreateSubdirectory(Folder);
+                        registerForm.SetActiveView(successView);
                     }
                     else
                     {
@@ -79,6 +80,10 @@ namespace Week2Module1.Account
                 conn.Close();
             }
             
+        }
+        protected void homeButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Account/Login.aspx", true);
         }
 
     }

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="MyDrive.aspx.cs" Inherits="Week2Module1.MyDrive" %>
+﻿<%@ Page Title="Drive" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="MyDrive.aspx.cs" Inherits="Week2Module1.MyDrive" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -7,7 +7,12 @@
 
     <asp:Panel ID="navigationPanel" runat="server" CssClass="left" Width="19%" 
         Height="470px" ScrollBars="Auto">
-        <asp:TreeView ID="DirectoryTree" runat="server">
+        <br />
+        <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="Images/home.png" 
+            oncommand="home_Command" style="height: 16px" />
+        &nbsp;<asp:LinkButton ID="LinkButton1" runat="server" oncommand="home_Command">Home</asp:LinkButton>
+        <asp:TreeView ID="DirectoryTree" runat="server" 
+            onselectednodechanged="DirectoryTree_SelectedNodeChanged">
             <LeafNodeStyle ImageUrl="~/Images/navFile.png" />
             <NodeStyle ImageUrl="~/Images/navfolder.png" />
         </asp:TreeView>
@@ -104,9 +109,11 @@
 
     <asp:Panel ID="infoPanel" runat="server" CssClass="left" Width="19%" 
         BackColor="#A4E1FF" Height="470px">
-        <asp:Image ID="selectedItem" runat="server" />
+        <asp:Image ID="selectedItem" runat="server" Height="100px" Width="100px" />
         <br />
         <asp:Literal ID="itemType" runat="server"></asp:Literal>
+        <br />
+        <asp:Literal ID="itemName" runat="server"></asp:Literal>
         <br />
         <asp:Panel ID="infoDescription" runat="server">
         </asp:Panel>

@@ -13,6 +13,24 @@ namespace Week2Module1.Account {
     public partial class Register {
         
         /// <summary>
+        /// registerForm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.MultiView registerForm;
+        
+        /// <summary>
+        /// registerView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.View registerView;
+        
+        /// <summary>
         /// nameImage control.
         /// </summary>
         /// <remarks>
@@ -236,5 +254,23 @@ namespace Week2Module1.Account {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button registerButton;
+        
+        /// <summary>
+        /// successView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.View successView;
+        
+        /// <summary>
+        /// Home control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Home;
     }
 }

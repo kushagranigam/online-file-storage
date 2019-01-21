@@ -29,7 +29,7 @@ namespace Week2Module1.Account
                 SqlCommand query = new SqlCommand("update login set pass=\'" + newPass.Text + "\' where username=\'" + (String)Session["username"] + "\'", conn);
                 n = query.ExecuteNonQuery();
                 if(n > 0)
-                    Response.Redirect("~/MyDrive.aspx");
+                    Response.Redirect("~/Account/ChangePasswordSuccess.aspx");
                 else
                     errorText.Text = "Something happened.. Please Try again.";
                 conn.Close();
