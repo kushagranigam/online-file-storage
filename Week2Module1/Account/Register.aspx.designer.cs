@@ -49,13 +49,13 @@ namespace Week2Module1.Account {
         protected global::System.Web.UI.WebControls.TextBox name;
         
         /// <summary>
-        /// RequiredFieldValidator1 control.
+        /// nameValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator nameValidator;
         
         /// <summary>
         /// nameError control.
@@ -85,13 +85,13 @@ namespace Week2Module1.Account {
         protected global::System.Web.UI.WebControls.TextBox dateOfBirth;
         
         /// <summary>
-        /// RequiredFieldValidator2 control.
+        /// dateofbirthValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator dateofbirthValidator;
         
         /// <summary>
         /// calendarButton control.
@@ -121,13 +121,13 @@ namespace Week2Module1.Account {
         protected global::System.Web.UI.WebControls.Label dobError;
         
         /// <summary>
-        /// Image8 control.
+        /// genderImage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image8;
+        protected global::System.Web.UI.WebControls.Image genderImage;
         
         /// <summary>
         /// gender control.
@@ -139,13 +139,13 @@ namespace Week2Module1.Account {
         protected global::System.Web.UI.WebControls.RadioButtonList gender;
         
         /// <summary>
-        /// RequiredFieldValidator3 control.
+        /// genderValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator genderValidator;
         
         /// <summary>
         /// userImage control.
@@ -166,13 +166,13 @@ namespace Week2Module1.Account {
         protected global::System.Web.UI.WebControls.TextBox userName;
         
         /// <summary>
-        /// RequiredFieldValidator4 control.
+        /// usernameValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator usernameValidator;
         
         /// <summary>
         /// usernameError control.
@@ -202,13 +202,13 @@ namespace Week2Module1.Account {
         protected global::System.Web.UI.WebControls.TextBox emailID;
         
         /// <summary>
-        /// RequiredFieldValidator5 control.
+        /// emailValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator5;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator emailValidator;
         
         /// <summary>
         /// emailError control.
@@ -238,13 +238,13 @@ namespace Week2Module1.Account {
         protected global::System.Web.UI.WebControls.TextBox password;
         
         /// <summary>
-        /// RequiredFieldValidator6 control.
+        /// passwordValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator6;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator passwordValidator;
         
         /// <summary>
         /// passwordError control.
@@ -274,13 +274,40 @@ namespace Week2Module1.Account {
         protected global::System.Web.UI.WebControls.TextBox confirmPassword;
         
         /// <summary>
-        /// CompareValidator1 control.
+        /// confirmpasswordValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator1;
+        protected global::System.Web.UI.WebControls.CompareValidator confirmpasswordValidator;
+        
+        /// <summary>
+        /// captchaImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image captchaImage;
+        
+        /// <summary>
+        /// captcha control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox captcha;
+        
+        /// <summary>
+        /// captchaValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator captchaValidator;
         
         /// <summary>
         /// Back control.
