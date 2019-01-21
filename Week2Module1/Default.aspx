@@ -4,7 +4,7 @@
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
 <asp:Content ID="PageContent" runat="server" ContentPlaceHolderID="MainContent">
-    <div id="formContainer" style="margin-top: 180px">
+    <div id="formContainer" style="margin-top: 150px">
         <div id="form">
             <asp:TextBox ID="search" runat="server" TabIndex="1" Height="30px" 
                 Width="250px"></asp:TextBox>

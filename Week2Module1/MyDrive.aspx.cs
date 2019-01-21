@@ -15,47 +15,23 @@ namespace Week2Module1
         static String path, action, root ,relative;
         public static String currentPath
         {
-            get
-            {
-                return path;
-            }
-            set
-            {
-                path = value;
-            }
+            get { return path;}
+            set { path = value;}
         }
         public static String actionPath
         {
-            get
-            {
-                return action;
-            }
-            set
-            {
-                action = value;
-            }
+            get { return action;}
+            set { action = value;}
         }
         public static String basePath
         {
-            get
-            {
-                return root;
-            }
-            set
-            {
-                root = value;
-            }
+            get { return root;}
+            set { root = value;}
         }
         public static String relativePath
         {
-            get
-            {
-                return relative;
-            }
-            set
-            {
-                relative = value;
-            }
+            get { return relative;}
+            set { relative = value;}
         }
     }
 
@@ -63,6 +39,7 @@ namespace Week2Module1
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            rememberMe();
             if (Session["handle"] != null)
             {
                 String FolderName = String.Empty;
@@ -85,6 +62,15 @@ namespace Week2Module1
             else
             {
                 Response.Redirect("~/Default.aspx");
+            }
+        }
+
+        protected void rememberMe()
+        {
+            if (Session["rememberMe"] != null && (bool)Session["rememberMe"])
+            {
+                Response.Cookies["userName"].Value = (String)Session["userName"];
+                Response.Cookies["userName"].Expires = DateTime.Now.AddDays(30d);
             }
         }
         protected void driveButton_Command(object sender, CommandEventArgs e)

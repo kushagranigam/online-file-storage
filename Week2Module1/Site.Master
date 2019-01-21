@@ -10,7 +10,7 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <form runat="server">
+    <form runat="server" id="mainForm" >
     <div class="page">
         <div class="header clear" style="overflow: auto;">
             <div class="left" style="overflow: auto;">
@@ -46,7 +46,7 @@
                                 <DynamicHoverStyle CssClass="menuHover" Height="80px" />
                                 <DynamicSelectedStyle CssClass="menuSelected" Height="100px" />
                                 <Items>
-                                    <asp:MenuItem NavigateUrl="~/Account/Login.aspx" Text="Log In" Value="Log In">
+                                    <asp:MenuItem NavigateUrl="~/Account/" Text="Log In" Value="Log In">
                                     </asp:MenuItem>
                                     <asp:MenuItem NavigateUrl="~/Account/Register.aspx" Text="Register" 
                                         Value="Register"></asp:MenuItem>

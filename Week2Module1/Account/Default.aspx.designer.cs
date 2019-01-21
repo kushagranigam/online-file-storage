@@ -10,7 +10,7 @@
 namespace Week2Module1.Account {
     
     
-    public partial class Login {
+    public partial class Default {
         
         /// <summary>
         /// userImage control.
@@ -91,15 +91,15 @@ namespace Week2Module1.Account {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton rmImage;
+        protected global::System.Web.UI.WebControls.Image rmImage;
         
         /// <summary>
-        /// rmLabel control.
+        /// rememberMe control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label rmLabel;
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox rememberMe;
     }
 }

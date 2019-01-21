@@ -11,30 +11,19 @@ using System.Web.UI.WebControls;
 
 namespace Week2Module1.Account
 {
-    public partial class Login : System.Web.UI.Page
+    public partial class Default : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(Session["handle"] != null)
-                Response.Redirect("~/Error.aspx?error="+Server.UrlEncode("You are already logged in!!"));
-        }
-
-        protected void rmImage_Click(object sender, ImageClickEventArgs e)
-        {
-            if (String.Compare(rmImage.ImageUrl,"~/Images/rmChecked.png")==0)
-            {
-                rmImage.ImageUrl = "~/Images/rmUnChecked.png";
-                rmLabel.ForeColor = System.Drawing.Color.Gray;
-            }
-            else
-            {
-                rmImage.ImageUrl = "~/Images/rmChecked.png";
-                rmLabel.ForeColor = System.Drawing.Color.FromArgb(00,204,255);
-            }
+            if (Session["handle"] != null)
+                Response.Redirect("~/Error.aspx?error=" + Server.UrlEncode("You are already logged in!!"));
+            if (Request.Cookies["userName"] != null)
+                userName.Text = Server.HtmlEncode(Request.Cookies["userName"].Value);
         }
 
         protected void loginButton_Click(object sender, EventArgs e)
         {
+
             MultiView loginBox = (MultiView)Master.FindControl("loginBox");
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["database"].ConnectionString);
             try
@@ -55,6 +44,10 @@ namespace Week2Module1.Account
                             Session["handle"] = result[0].ToString();
                             Session["userName"] = userName.Text;
                             loginBox.ActiveViewIndex = 0;
+                            if (rememberMe.Checked)
+                                Session["rememberMe"] = true;
+                            else
+                                Session.Remove("rememberMe");
                             Response.Redirect("~/MyDrive.aspx");
                         }
                         else
