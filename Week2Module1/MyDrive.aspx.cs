@@ -88,15 +88,21 @@ namespace Week2Module1
                     OptionViews.ActiveViewIndex = 1;
                     break;
                 case "rename":
-                    Drive.Height = 380;
-                    optionsExtended.Height = 90;
-                    OptionViews.ActiveViewIndex = 2;
+                    if (selectedItem.AlternateText.Length > 0)
+                    {
+                        Drive.Height = 380;
+                        optionsExtended.Height = 90;
+                        OptionViews.ActiveViewIndex = 2;
+                    }
                     break;
                 case "delete":
-                    Drive.Height = 380;
-                    optionsExtended.Height = 90;
-                    OptionViews.ActiveViewIndex = 3;
-                    deleteMessage.Text = deleteMessage.Text + itemType.Text + "?";
+                    if (selectedItem.AlternateText.Length > 0)
+                    {
+                        Drive.Height = 380;
+                        optionsExtended.Height = 90;
+                        OptionViews.ActiveViewIndex = 3;
+                        deleteMessage.Text = deleteMessage.Text + itemType.Text + "?";
+                    }
                     break;
                 default:
                     Response.Redirect("~/Error.aspx?error=" + Server.UrlEncode(e.CommandName));
@@ -403,9 +409,10 @@ namespace Week2Module1
 
         protected void home_Command(object sender, CommandEventArgs e)
         {
+            selectedItem.ImageUrl = "~/Images/drive.png";
+            itemName.Text = "Home";
             PathStore.currentPath = Server.MapPath(PathStore.basePath);
             addDirectory();
         }
-
     }
 }

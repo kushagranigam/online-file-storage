@@ -120,7 +120,8 @@
         <asp:Panel ID="itemActions" runat="server" GroupingText="Item Actions">
             <asp:ImageButton ID="renameButton" runat="server" Width="30px" Height="30px" 
                 AlternateText="Rename" ImageUrl="~/Images/rename.png" ToolTip="Rename" 
-                CommandName="rename" oncommand="driveButton_Command" />
+                CommandName="rename" oncommand="driveButton_Command" 
+                onclick="renameButton_Click" />
             <asp:ImageButton ID="deleteButton" runat="server" Width="30px" Height="30px" 
                 AlternateText="Delete" ImageUrl="~/Images/delete.png" ToolTip="Delete" 
                 CommandName="delete" oncommand="driveButton_Command" />
