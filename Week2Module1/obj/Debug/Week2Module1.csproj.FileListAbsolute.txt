@@ -1,0 +1,4 @@
+C:\Modules Developed\Week2Module1\Week2Module1\bin\Week2Module1.dll
+C:\Modules Developed\Week2Module1\Week2Module1\bin\Week2Module1.pdb
+C:\Modules Developed\Week2Module1\Week2Module1\obj\Debug\Week2Module1.dll
+C:\Modules Developed\Week2Module1\Week2Module1\obj\Debug\Week2Module1.pdb
