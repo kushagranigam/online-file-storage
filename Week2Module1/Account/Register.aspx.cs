@@ -39,23 +39,17 @@ namespace Week2Module1.Account
                     Response.Redirect("~/Error.aspx?error=" + Server.UrlEncode(err.ToString()));
                 }
             }
-
+            else
+            {
+                bool nameValid = isNameValid(name.Text);
+                bool dateofbirthValid = isDateOfBirthValid(dateOfBirth.Text);
+                bool usernameValid = isUsernameValid(userName.Text);
+                bool emailValid = isEmailValid(emailID.Text);
+                bool passwordValid = isPasswordValid(password.Text);
+                bool captchaValid = isCaptchaValid(captcha.Text);
+            }
             if(Request.UrlReferrer != null)
                 Back.PostBackUrl = Request.UrlReferrer.ToString();
-        }
-        
-        protected void calendar_SelectionChanged(object sender, EventArgs e)
-        {
-            dateOfBirth.Text = calendar.SelectedDate.ToString("dd-MM-yyyy");
-            calendar.Visible = false;
-        }
-
-        protected void calendarButton_Click(object sender, ImageClickEventArgs e)
-        {
-            if (calendar.Visible == true)
-                calendar.Visible = false;
-            else
-                calendar.Visible = true;
         }
 
         public string convertDate(String inputDate)
@@ -176,7 +170,7 @@ namespace Week2Module1.Account
         //Date of Birth Validation
         protected bool isDateOfBirthValid(String input)
         {
-            Regex dobRE = new Regex(@"^([0-9]|0[0-9]|1[1-2])-([0-2][0-9]|3[0-1])-(1[0-9]|20)\d{2}$");
+            Regex dobRE = new Regex(@"^([0-9]|0[0-9]|1[1-2])-([0-2]?[0-9]|3[0-1])-(1[0-9]|20)\d{2}$");
             if (!dobRE.IsMatch(input))
             {
                 dobError.Text = "Date of birth doesn't look right.";
@@ -216,7 +210,7 @@ namespace Week2Module1.Account
         //Email Validation
         protected bool isEmailValid(String input)
         {
-            Regex emailRE = new Regex(@"^([\w\.-]+)@([\w-]+)((\.(\w){2,3})+)$");
+            Regex emailRE = new Regex(@"^([\w]+[\.-]?)+@([\w-]+)((\.(\w){2,3})+)$");
             if (!emailRE.IsMatch(input))
             {
                 emailValidator.IsValid = false;
@@ -236,8 +230,29 @@ namespace Week2Module1.Account
             var result = sh.ComputeHash(text);
             if (String.Compare(captchaMatch, BitConverter.ToString(result).Replace("-", "").ToLower() + ".png") == 0)
                 captchaValidator.IsValid = true;
-            captchaValidator.IsValid = false;
+            else
+                captchaValidator.IsValid = false;
             return false;
+        }
+
+        protected void reloadCaptcha_Command(object sender, CommandEventArgs e)
+        {
+            try
+            {
+                DirectoryInfo captchaFolder = new DirectoryInfo(Server.MapPath("~") + @"\Images\captcha");
+                FileInfo[] captchaImages = captchaFolder.GetFiles();
+                Random r = new Random();
+                int i = r.Next(captchaImages.Length);
+                if (i < captchaImages.Length)
+                {
+                    captchaImage.ImageUrl = "~/Images/captcha/" + captchaImages[i].Name;
+                    captchaMatch = captchaImages[i].Name;
+                }
+            }
+            catch (Exception err)
+            {
+                Response.Redirect("~/Error.aspx?error=" + Server.UrlEncode(err.ToString()));
+            }
         }
     }
 }

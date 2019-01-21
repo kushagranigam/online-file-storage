@@ -55,7 +55,6 @@ namespace Week2Module1
                         create.CreateSubdirectory(FolderName);
                     }
                     createNavPan(PathStore.currentPath, null, 'n', null, 0);
-                    AddressBar.Text = @"\";
                 }
                 addDirectory();
             }
@@ -384,7 +383,20 @@ namespace Week2Module1
             {
                 case "Folder":
                     PathStore.currentPath = PathStore.currentPath + @"\" + e.CommandName.ToString();
-                    addDirectory();
+                    Button link = new Button();
+                    link.Text = e.CommandName;
+                    link.BorderStyle = BorderStyle.None;
+                    link.Command += link_Command;
+                    link.CssClass = "left";
+                    link.ID = "CurrentNavFolder" + e.CommandName;
+                    link.CommandArgument = e.CommandName;
+                    CurrentNav.Controls.Add(link);
+                    Label rtrif_ = new Label();
+                    rtrif_.Text = "&rtrif;";
+                    rtrif_.ID = "CurrentNavRTRIF" + e.CommandName;
+                    rtrif_.CssClass = "left";
+                    CurrentNav.Controls.Add(rtrif_);
+                    //addDirectory();
                     break;
                 default:
                     break;
@@ -402,8 +414,42 @@ namespace Week2Module1
 
         protected void DirectoryTree_SelectedNodeChanged(object sender, EventArgs e)
         {
+            int c = 1;
             PathStore.currentPath = Server.MapPath(PathStore.basePath + "/" + DirectoryTree.SelectedNode.ValuePath.Replace("/",@"\"));
-            AddressBar.Text = DirectoryTree.SelectedNode.NavigateUrl;
+            String[] navs = DirectoryTree.SelectedNode.ValuePath.Split('/');
+            String valuePath = "";
+            CurrentNav.Controls.Clear();
+            ImageButton home = new ImageButton();
+            home.AlternateText = "Home";
+            home.ID = "CurrentNavHome";
+            home.ImageUrl = "~/Images/home.png";
+            home.Command += home_Command;
+            home.CssClass = "left";
+            CurrentNav.Controls.Add(home);
+            Label rtrif = new Label();
+            rtrif.Text = "&rtrif;";
+            rtrif.ID = "CurrentNavRTRIF0";
+            rtrif.CssClass = "left";
+            CurrentNav.Controls.Add(rtrif);
+            foreach (String i in navs)
+            {
+                valuePath += "/" + i;
+                Button link = new Button();
+                link.Text = i;
+                link.ToolTip = i;
+                link.BorderStyle = BorderStyle.None;
+                link.CssClass = "left";
+                link.ID = "CurrentNavFolder" + c;
+                link.Command += link_Command;
+                link.CommandArgument = valuePath;
+                CurrentNav.Controls.Add(link);
+                Label rtrif_ = new Label();
+                rtrif_.Text = "&rtrif;";
+                rtrif_.ID = "CurrentNavRTRIF" + c;
+                rtrif_.CssClass = "left";
+                CurrentNav.Controls.Add(rtrif_);
+                c++;
+            }
             addDirectory();
         }
 
@@ -412,6 +458,12 @@ namespace Week2Module1
             selectedItem.ImageUrl = "~/Images/drive.png";
             itemName.Text = "Home";
             PathStore.currentPath = Server.MapPath(PathStore.basePath);
+            addDirectory();
+        }
+
+        protected void link_Command(object sender, CommandEventArgs e)
+        {
+            PathStore.currentPath = Server.MapPath(PathStore.basePath + e.CommandArgument);
             addDirectory();
         }
     }

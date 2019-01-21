@@ -1,7 +1,7 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Week2Module1.SiteMaster" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+
 <head runat="server">
     <title></title>
     <link href="~/Styles/Site.css" rel="stylesheet" type="text/css" />
@@ -32,13 +32,13 @@
                             <asp:Literal ID="username" runat="server"></asp:Literal>
                             <br />
                             <asp:Button ID="changePassButton" runat="server" BackColor="#BFFFFF" 
-                                BorderColor="#BFFFFF" BorderStyle="Solid" BorderWidth="3px" 
+                                BorderColor="#BFFFFF" BorderStyle="Solid" BorderWidth="1px" 
                                 CssClass="menu buttons" onclick="changePassButton_Click" 
-                                Text="Change Password" />
+                                Text="Change Password" ValidationGroup="siteControls" />
                             &nbsp;&nbsp;&nbsp;
                             <asp:Button ID="logoutButton" runat="server" BorderStyle="Solid" CssClass=" menu buttons" 
                                 onclick="logoutButton_Click" Text="Logout" BackColor="#B0B0FF" 
-                                BorderColor="#B0B0FF" BorderWidth="3px" />
+                                BorderColor="#B0B0FF" BorderWidth="1px" ValidationGroup="siteControls" />
                         </asp:View>
                         <asp:View ID="loggedOut" runat="server">
                             <asp:Menu ID="LoginMenu" runat="server" CssClass="menu" 

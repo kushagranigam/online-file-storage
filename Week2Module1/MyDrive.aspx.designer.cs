@@ -58,6 +58,33 @@ namespace Week2Module1 {
         protected global::System.Web.UI.WebControls.Panel viewPanel;
         
         /// <summary>
+        /// CurrentNav control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel CurrentNav;
+        
+        /// <summary>
+        /// Home control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton Home;
+        
+        /// <summary>
+        /// Label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
+        
+        /// <summary>
         /// Drive control.
         /// </summary>
         /// <remarks>
@@ -65,15 +92,6 @@ namespace Week2Module1 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel Drive;
-        
-        /// <summary>
-        /// AddressBar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox AddressBar;
         
         /// <summary>
         /// DriveContent control.
@@ -298,7 +316,7 @@ namespace Week2Module1 {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal itemType;
+        protected global::System.Web.UI.WebControls.TextBox itemType;
         
         /// <summary>
         /// itemName control.
@@ -307,7 +325,7 @@ namespace Week2Module1 {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal itemName;
+        protected global::System.Web.UI.WebControls.TextBox itemName;
         
         /// <summary>
         /// infoDescription control.

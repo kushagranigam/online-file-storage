@@ -31,13 +31,13 @@ namespace Week2Module1.Account {
         protected global::System.Web.UI.WebControls.TextBox userName;
         
         /// <summary>
-        /// RequiredFieldValidator1 control.
+        /// usernameValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator usernameValidator;
         
         /// <summary>
         /// passwordImage control.
@@ -58,13 +58,13 @@ namespace Week2Module1.Account {
         protected global::System.Web.UI.WebControls.TextBox password;
         
         /// <summary>
-        /// RequiredFieldValidator2 control.
+        /// passwordValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator passwordValidator;
         
         /// <summary>
         /// errorText control.

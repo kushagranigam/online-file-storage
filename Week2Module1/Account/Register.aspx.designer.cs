@@ -94,24 +94,6 @@ namespace Week2Module1.Account {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator dateofbirthValidator;
         
         /// <summary>
-        /// calendarButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton calendarButton;
-        
-        /// <summary>
-        /// calendar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Calendar calendar;
-        
-        /// <summary>
         /// dobError control.
         /// </summary>
         /// <remarks>
@@ -290,6 +272,24 @@ namespace Week2Module1.Account {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image captchaImage;
+        
+        /// <summary>
+        /// reloadCaptchaImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton reloadCaptchaImage;
+        
+        /// <summary>
+        /// reloadCaptcha control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button reloadCaptcha;
         
         /// <summary>
         /// captcha control.

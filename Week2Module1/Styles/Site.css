@@ -1,6 +1,12 @@
 ﻿/* DEFAULTS
 ----------------------------------------------------------*/
 
+*
+{
+    margin: 0;
+    padding:0;
+}
+
 body   
 {
     background: #b6b7bc;
@@ -205,6 +211,7 @@ fieldset
     margin: 1em 0px;
     padding: 1em;
     border: 1px solid #ccc;
+    box-sizing: border-box;
 }
 
 fieldset p 
@@ -306,7 +313,7 @@ div.accountInfo
 .buttons
 {
     border-radius: 3px;
-    height: 32px;
+    padding: 2px;
 }
 
 .garbage {
@@ -318,6 +325,11 @@ div.accountInfo
 .garbage[style*=visible] + textarea {
     background-color: #ffcccc;
     border: 1px solid #ff0000;
+}
+
+.clear
+{
+    clear: both;
 }
 
 .left
@@ -341,4 +353,22 @@ div.accountInfo
 {
     padding: 3px;
     display: inline-block;
+}
+
+.panelContainer
+{
+    padding: 5px;
+}
+
+.itemDetails
+{
+    background-color:transparent;
+}
+
+.driveBox
+{
+    padding: 3px;
+    border: 2px solid #D6D6D6;
+    border-radius: 5px;
+    overflow: auto; 
 }
