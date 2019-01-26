@@ -1,0 +1,145 @@
+	/*
+  	Flaticon icon font: Flaticon
+  	Creation date: 22/06/2016 15:45
+  	*/
+
+@font-face {
+  font-family: "Flaticon";
+  src: url("./Flaticon.eot");
+  src: url("./Flaticon.eot?#iefix") format("embedded-opentype"),
+       url("./Flaticon.woff") format("woff"),
+       url("./Flaticon.ttf") format("truetype"),
+       url("./Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("./Flaticon.svg#Flaticon") format("svg");
+  }
+}
+
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before,
+[class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
+  font-family: Flaticon;
+        font-size: 20px;
+font-style: normal;
+margin-left: 20px;
+}
+
+.flaticon-accepted:before { content: "\f100"; }
+.flaticon-access-denied:before { content: "\f101"; }
+.flaticon-access-denied-1:before { content: "\f102"; }
+.flaticon-access-denied-2:before { content: "\f103"; }
+.flaticon-add:before { content: "\f104"; }
+.flaticon-adobe:before { content: "\f105"; }
+.flaticon-ae:before { content: "\f106"; }
+.flaticon-ai:before { content: "\f107"; }
+.flaticon-attach:before { content: "\f108"; }
+.flaticon-br:before { content: "\f109"; }
+.flaticon-cdr:before { content: "\f10a"; }
+.flaticon-copy:before { content: "\f10b"; }
+.flaticon-copyright:before { content: "\f10c"; }
+.flaticon-csh:before { content: "\f10d"; }
+.flaticon-css:before { content: "\f10e"; }
+.flaticon-css-1:before { content: "\f10f"; }
+.flaticon-css-2:before { content: "\f110"; }
+.flaticon-csv:before { content: "\f111"; }
+.flaticon-cut:before { content: "\f112"; }
+.flaticon-dll:before { content: "\f113"; }
+.flaticon-doc:before { content: "\f114"; }
+.flaticon-duplicate:before { content: "\f115"; }
+.flaticon-dw:before { content: "\f116"; }
+.flaticon-edit:before { content: "\f117"; }
+.flaticon-eps:before { content: "\f118"; }
+.flaticon-exe:before { content: "\f119"; }
+.flaticon-favorite:before { content: "\f11a"; }
+.flaticon-favorite-1:before { content: "\f11b"; }
+.flaticon-file:before { content: "\f11c"; }
+.flaticon-file-1:before { content: "\f11d"; }
+.flaticon-file-2:before { content: "\f11e"; }
+.flaticon-file-3:before { content: "\f11f"; }
+.flaticon-file-4:before { content: "\f120"; }
+.flaticon-file-5:before { content: "\f121"; }
+.flaticon-file-6:before { content: "\f122"; }
+.flaticon-file-7:before { content: "\f123"; }
+.flaticon-files:before { content: "\f124"; }
+.flaticon-fla:before { content: "\f125"; }
+.flaticon-flac:before { content: "\f126"; }
+.flaticon-flv:before { content: "\f127"; }
+.flaticon-folder:before { content: "\f128"; }
+.flaticon-folder-1:before { content: "\f129"; }
+.flaticon-folder-10:before { content: "\f12a"; }
+.flaticon-folder-11:before { content: "\f12b"; }
+.flaticon-folder-12:before { content: "\f12c"; }
+.flaticon-folder-13:before { content: "\f12d"; }
+.flaticon-folder-14:before { content: "\f12e"; }
+.flaticon-folder-15:before { content: "\f12f"; }
+.flaticon-folder-16:before { content: "\f130"; }
+.flaticon-folder-17:before { content: "\f131"; }
+.flaticon-folder-18:before { content: "\f132"; }
+.flaticon-folder-19:before { content: "\f133"; }
+.flaticon-folder-2:before { content: "\f134"; }
+.flaticon-folder-20:before { content: "\f135"; }
+.flaticon-folder-21:before { content: "\f136"; }
+.flaticon-folder-22:before { content: "\f137"; }
+.flaticon-folder-23:before { content: "\f138"; }
+.flaticon-folder-3:before { content: "\f139"; }
+.flaticon-folder-4:before { content: "\f13a"; }
+.flaticon-folder-5:before { content: "\f13b"; }
+.flaticon-folder-6:before { content: "\f13c"; }
+.flaticon-folder-7:before { content: "\f13d"; }
+.flaticon-folder-8:before { content: "\f13e"; }
+.flaticon-folder-9:before { content: "\f13f"; }
+.flaticon-gif:before { content: "\f140"; }
+.flaticon-html:before { content: "\f141"; }
+.flaticon-id:before { content: "\f142"; }
+.flaticon-invoice:before { content: "\f143"; }
+.flaticon-jpeg:before { content: "\f144"; }
+.flaticon-jpg:before { content: "\f145"; }
+.flaticon-message:before { content: "\f146"; }
+.flaticon-minus:before { content: "\f147"; }
+.flaticon-mkv:before { content: "\f148"; }
+.flaticon-mobi:before { content: "\f149"; }
+.flaticon-mov:before { content: "\f14a"; }
+.flaticon-mp3:before { content: "\f14b"; }
+.flaticon-mpg:before { content: "\f14c"; }
+.flaticon-new-file:before { content: "\f14d"; }
+.flaticon-ot:before { content: "\f14e"; }
+.flaticon-otf:before { content: "\f14f"; }
+.flaticon-pdf:before { content: "\f150"; }
+.flaticon-php:before { content: "\f151"; }
+.flaticon-png:before { content: "\f152"; }
+.flaticon-ppt:before { content: "\f153"; }
+.flaticon-protected:before { content: "\f154"; }
+.flaticon-ps:before { content: "\f155"; }
+.flaticon-psd:before { content: "\f156"; }
+.flaticon-rar:before { content: "\f157"; }
+.flaticon-registered:before { content: "\f158"; }
+.flaticon-rtf:before { content: "\f159"; }
+.flaticon-search:before { content: "\f15a"; }
+.flaticon-service-mark:before { content: "\f15b"; }
+.flaticon-sketch:before { content: "\f15c"; }
+.flaticon-svg:before { content: "\f15d"; }
+.flaticon-tag:before { content: "\f15e"; }
+.flaticon-tag-1:before { content: "\f15f"; }
+.flaticon-tag-2:before { content: "\f160"; }
+.flaticon-tag-3:before { content: "\f161"; }
+.flaticon-tag-4:before { content: "\f162"; }
+.flaticon-tag-5:before { content: "\f163"; }
+.flaticon-tag-6:before { content: "\f164"; }
+.flaticon-tag-7:before { content: "\f165"; }
+.flaticon-tar:before { content: "\f166"; }
+.flaticon-text-document:before { content: "\f167"; }
+.flaticon-tif:before { content: "\f168"; }
+.flaticon-trademark:before { content: "\f169"; }
+.flaticon-ttf:before { content: "\f16a"; }
+.flaticon-txt:before { content: "\f16b"; }
+.flaticon-unprotected:before { content: "\f16c"; }
+.flaticon-video-file:before { content: "\f16d"; }
+.flaticon-wav:before { content: "\f16e"; }
+.flaticon-wma:before { content: "\f16f"; }
+.flaticon-xls:before { content: "\f170"; }
+.flaticon-zip:before { content: "\f171"; }
