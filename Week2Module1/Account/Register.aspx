@@ -2,6 +2,7 @@
     CodeBehind="Register.aspx.cs" Inherits="Week2Module1.Account.Register" %>
 
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
+    <script src="../Scripts/jquery-1.4.1.min.js" type="text/javascript"></script>
     <style type="text/css">
         /*Calendar Styles*/
         .view1{cursor:pointer; padding:2px; width:20px; height:0px; color: #FFFFFF; font-weight:bold;}
@@ -21,6 +22,11 @@
         table{font-family:"Century Gothic"; font-size:13px; margin:auto; text-align:center; }
     </style>
     <script type="text/javascript">
+        $(document).ready(function () {
+            $("#form").click(hideCalendar).children().click(function () {
+                return false;
+            });
+        });
         function nameError() { document.getElementById("<%= nameError.ClientID %>").innerHTML = ""; }
         function dobError() { document.getElementById("<%= dobError.ClientID %>").innerHTML = ""; }
         function usernameError() { document.getElementById("<%= usernameError.ClientID %>").innerHTML = ""; }
@@ -33,6 +39,11 @@
             if (cal.style.display == "none") cal.style.display = "block";
             else cal.style.display = "none";
             return calendar();
+        }
+        function hideCalendar() {
+            var cal = document.getElementById("calendar");
+            if (cal.style.display == "block")
+                cal.style.display = "none";
         }
     </script>
     <!-- Calendar Script -->
@@ -65,7 +76,7 @@
         function calendar() {
             d.setFullYear(y, m, 1);
             d.Month();
-
+            document.getElementById("monthView").style.visibility = document.getElementById("yearView").style.visibility = "hidden";
             var xD = d.getDay();
 
             document.getElementById("month").innerHTML = d.monthName + ", " + d.getFullYear();
@@ -118,7 +129,7 @@
 
                         &nbsp;<asp:TextBox ID="name" runat="server" placeholder="Name" Height="25px" 
                             Width="300px" CausesValidation="True" MaxLength="40" TabIndex="1" 
-                        ToolTip="Name" AutoCompleteType="Disabled" onkeypress="nameError()" 
+                        ToolTip="Name" onkeypress="nameError()" autocomplete="off"
                         ValidationGroup="registerValidation"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="nameValidator" runat="server" 
                             ErrorMessage="*" ForeColor="Red" Height="25px" 
@@ -131,7 +142,7 @@
                         ImageUrl="~/Images/dateOfBirth.png" Width="25px" />
                     &nbsp;<asp:TextBox ID="dateOfBirth" runat="server" Height="25px" placeholder="Date of Birth" 
                         TabIndex="2" Width="300px" ToolTip="Date of Birth" 
-                        AutoCompleteType="Disabled" MaxLength="10" onkeypress="dobError()" 
+                         autocomplete="off" MaxLength="10" onkeypress="dobError()" 
                         ValidationGroup="registerValidation"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="dateofbirthValidator" runat="server" 
                         ControlToValidate="dateOfBirth" ErrorMessage="*" ForeColor="Red" 
@@ -196,7 +207,7 @@
                     &nbsp;<asp:TextBox ID="userName" runat="server" Height="25px" 
                         placeholder="UserName" TabIndex="4" 
                         Width="300px" ToolTip="Choose a unique username." 
-                        AutoCompleteType="Disabled" MaxLength="30" onkeypress="usernameError()" 
+                        autocomplete="off" MaxLength="30" onkeypress="usernameError()" 
                         ValidationGroup="registerValidation"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="usernameValidator" runat="server" 
                         ControlToValidate="userName" ErrorMessage="*" ForeColor="Red" 
@@ -209,7 +220,7 @@
                         ImageUrl="~/Images/emailId.png" Width="25px" />
                     &nbsp;<asp:TextBox ID="emailID" runat="server" Height="25px" MaxLength="60" 
                         placeholder="Email ID" TabIndex="5" 
-                        Width="300px" ToolTip="e-mail ID" AutoCompleteType="Disabled" 
+                        Width="300px" ToolTip="e-mail ID" autocomplete="off" 
                         onkeypress="emailError()" ValidationGroup="registerValidation"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="emailValidator" runat="server" 
                         ControlToValidate="emailID" ErrorMessage="*" ForeColor="Red" Height="25px" 
@@ -223,7 +234,7 @@
                     &nbsp;<asp:TextBox ID="password" runat="server" Height="25px" MaxLength="40" 
                         placeholder="Password" style="margin-bottom: 0px" TabIndex="6" 
                         TextMode="Password" Width="300px" ToolTip="Create password." 
-                        AutoCompleteType="Disabled" onkeypress="passwordError()" 
+                        autocomplete="off" onkeypress="passwordError()" 
                         ValidationGroup="registerValidation"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="passwordValidator" runat="server" 
                         ControlToValidate="password" ErrorMessage="*" ForeColor="Red" 
@@ -239,7 +250,7 @@
                         &nbsp;<asp:TextBox ID="confirmPassword" runat="server" 
                             placeholder="Confirm Password" Height="25px" Width="305px" 
                             TextMode="Password" MaxLength="40" TabIndex="7" 
-                        ToolTip="Confirm Password." AutoCompleteType="Disabled" 
+                        ToolTip="Confirm Password." autocomplete="off" 
                         ValidationGroup="registerValidation"></asp:TextBox>
                         <br />
                     <asp:CompareValidator ID="confirmpasswordValidator" runat="server" 
@@ -259,8 +270,8 @@
                     <br />
                     <asp:TextBox ID="captcha" runat="server" Height="25px" 
                         onkeypress="captchaError()" placeholder="Enter text shown in the image above." 
-                        ToolTip="Enter captcha text." ValidationGroup="registerValidation" 
-                        Width="246px"></asp:TextBox>
+                        ToolTip="Enter captcha text." ValidationGroup="registerValidation" autocomplete="off" 
+                        Width="246px" TabIndex="8"></asp:TextBox>
                     <br />
                     <asp:CustomValidator ID="captchaValidator" runat="server" 
                         ControlToValidate="captcha" ErrorMessage="Invalid Captcha entered." 
@@ -268,12 +279,12 @@
                     <br />
                     <br />
                     <asp:Button ID="Back" runat="server" BackColor="#FF6262" BorderColor="#FF6262" 
-                        BorderStyle="Solid" BorderWidth="5px" CssClass="buttons" TabIndex="9" 
+                        BorderStyle="Solid" BorderWidth="5px" CssClass="buttons" TabIndex="10" 
                         Text="Back" UseSubmitBehavior="False" />
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <asp:Button ID="registerButton" runat="server" BackColor="#CCFF66" 
                         BorderColor="#CCFF66" BorderStyle="Solid" BorderWidth="5px" CssClass="buttons" 
-                        onclick="registerButton_Click" TabIndex="8" Text="Register" 
+                        onclick="registerButton_Click" TabIndex="9" Text="Register" 
                         ValidationGroup="registerValidation" />
                         <br />
                         <br />
@@ -282,11 +293,11 @@
                     
                     <br />
                     
-                    You are Successfully Registered. Click &#39;Login&#39; to proceed.<br />
+                    You are Successfully Registered. Click on button below to proceed.<br />
                     <br />
                     <asp:Button ID="Home" runat="server" BackColor="#FFFF99" BorderColor="#FFFF99" 
                         BorderStyle="Solid" BorderWidth="5px" CssClass="buttons" 
-                        onclick="homeButton_Click" Text="Login" UseSubmitBehavior="False" />
+                        onclick="homeButton_Click" Text="Go to Drive" UseSubmitBehavior="False" />
                     
                 </asp:View>
             </asp:MultiView>

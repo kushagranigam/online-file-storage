@@ -90,33 +90,65 @@ namespace Week2Module1.Account
                 {
                     int n;
                     conn.Open();
-                    SqlCommand userUpdate = new SqlCommand("insert into users(name, dob, gender, emailId) values(\'" + nameText + "\', \'" + convertDate(dobText) + "\', \'" + genderSelectedValue + "\', \'" + emailText + "\')", conn);
-                    n = userUpdate.ExecuteNonQuery();
-                    if (n > 0)
-                    {
-                        SqlCommand findUserId = new SqlCommand("select userId, name from users where name=\'" + nameText + "\' and emailId=\'" + emailText + "\' and dob=\'" + convertDate(dobText) + "\'", conn);
+                    SqlCommand userExists = new SqlCommand("select count(*) from users where emailId=\'" + emailText + "\'", conn);
+                    SqlDataReader readUserExist = null;
+                    readUserExist = userExists.ExecuteReader();
 
-                        SqlDataReader userId = null;
-                        userId = findUserId.ExecuteReader();
-                        userId.Read();
-                        SqlCommand loginUpdate = new SqlCommand("insert into login values(\'" + (int)userId[0] + "\', \'" + userNameText + "\', \'" + passText + "\')", conn);
-                        userId.Close();
-                        n = loginUpdate.ExecuteNonQuery();
+                    if (!readUserExist.HasRows)
+                    {
+                        SqlCommand userUpdate = new SqlCommand("insert into users(name, dob, gender, emailId) values(\'" + nameText + "\', \'" + convertDate(dobText) + "\', \'" + genderSelectedValue + "\', \'" + emailText + "\')", conn);
+                        n = userUpdate.ExecuteNonQuery();
                         if (n > 0)
                         {
-                            DirectoryInfo UserDirectory = new DirectoryInfo(Server.MapPath("~") + @"\Directories\");
-                            String Folder = nameText.Replace(" ", "_");
-                            UserDirectory.CreateSubdirectory(Folder);
-                            registerForm.SetActiveView(successView);
+                            SqlCommand findUserId = new SqlCommand("select userId, name from users where name=\'" + nameText + "\' and emailId=\'" + emailText + "\' and dob=\'" + convertDate(dobText) + "\'", conn);
+                            
+                            int userIdValue;
+                            SqlDataReader userId = null;
+                            userId = findUserId.ExecuteReader();
+                            userId.Read();
+                            userIdValue = (int)userId[0];
+                            SqlCommand loginUpdate = new SqlCommand("insert into login values(\'" + userIdValue + "\', \'" + userNameText + "\', \'" + passText + "\')", conn);
+                            userId.Close();
+                            n = loginUpdate.ExecuteNonQuery();
+                            if (n > 0)
+                            {
+                                byte[] folderBytes = Encoding.UTF8.GetBytes(userNameText + "_root");
+                                SHA1 cryptFolder = new SHA1CryptoServiceProvider();
+                                byte[] cryptedFolder = cryptFolder.ComputeHash(folderBytes);
+                                String cryptedFolderString = BitConverter.ToString(cryptedFolder).Replace("-","").ToLower();
+
+                                
+                                String directories = Server.MapPath("~") + @"\Directories\";
+                                DirectoryInfo UsersDirectory = new DirectoryInfo(directories);
+
+                                UsersDirectory.CreateSubdirectory(cryptedFolderString);
+
+                                SqlCommand insertDirectory = new SqlCommand("insert into directories(userId, nodename, parentnode, isdirectory, url, accessright, token) values(" + userIdValue + ", \'" + userNameText + "_root\', -1, 1, " + directories + "\\" + cryptedFolderString + ", 1010, \'" + cryptedFolderString + "\')", conn);
+                                n = insertDirectory.ExecuteNonQuery();
+                                if (n > 0)
+                                {
+                                    Session["handle"] = nameText;
+                                    Session["username"] = userNameText;
+                                    registerForm.SetActiveView(successView);
+                                }
+                                else
+                                {
+                                    throw (new Exception("Error occurred while updating database"));
+                                }
+                            }
+                            else
+                            {
+                                throw (new Exception("Failed to Insert Login data."));
+                            }
                         }
                         else
                         {
-                            throw (new Exception("Failed to Insert Login data."));
+                            throw (new Exception("Failed to insert User Data."));
                         }
                     }
                     else
                     {
-                        throw (new Exception("Failed to insert User Data."));
+                        throw (new Exception("Email already registered with another user."));
                     }
                 }
                 catch (Exception err)
@@ -232,7 +264,7 @@ namespace Week2Module1.Account
                 captchaValidator.IsValid = true;
             else
                 captchaValidator.IsValid = false;
-            return false;
+            return captchaValidator.IsValid;
         }
 
         protected void reloadCaptcha_Command(object sender, CommandEventArgs e)

@@ -177,7 +177,7 @@ namespace Week2Module1
                     {
                         file.ImageUrl = @"Images/file.png";
                     }
-                    
+
                     fileContainer.Controls.Add(file);
                     HyperLink name = new HyperLink();
                     name.Text = files.Name;
@@ -199,7 +199,6 @@ namespace Week2Module1
                 Response.Write(err.ToString());
             }
         }
-
 
         void createNavPan(String root, String valuePath, char isNode, String folderName, int chk)
         {
@@ -396,7 +395,7 @@ namespace Week2Module1
                     rtrif_.ID = "CurrentNavRTRIF" + e.CommandName;
                     rtrif_.CssClass = "left";
                     CurrentNav.Controls.Add(rtrif_);
-                    //addDirectory();
+                    addDirectory();
                     break;
                 default:
                     break;
@@ -415,7 +414,7 @@ namespace Week2Module1
         protected void DirectoryTree_SelectedNodeChanged(object sender, EventArgs e)
         {
             int c = 1;
-            PathStore.currentPath = Server.MapPath(PathStore.basePath + "/" + DirectoryTree.SelectedNode.ValuePath.Replace("/",@"\"));
+            PathStore.currentPath = Server.MapPath(PathStore.basePath + "/" + DirectoryTree.SelectedNode.ValuePath);
             String[] navs = DirectoryTree.SelectedNode.ValuePath.Split('/');
             String valuePath = "";
             CurrentNav.Controls.Clear();
