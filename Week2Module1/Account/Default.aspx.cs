@@ -57,7 +57,7 @@ namespace Week2Module1.Account
                                     Session["rememberMe"] = true;
                                 else
                                     Session.Remove("rememberMe");
-                                Response.Redirect("~/MyDrive.aspx");
+                                Response.Redirect("~/Drive/");
                             }
                             else
                             {

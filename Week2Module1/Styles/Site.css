@@ -372,3 +372,17 @@ div.accountInfo
     border-radius: 5px;
     overflow: auto; 
 }
+
+.options
+{
+    padding: 6px;
+    height: 32px;
+    width: 32px;
+    border-radius: 16px;
+}
+
+.driveOptions
+{
+    padding: 3px;
+    overflow: auto;
+}
