@@ -386,3 +386,15 @@ div.accountInfo
     padding: 3px;
     overflow: auto;
 }
+
+button.folder
+{
+    border: none;
+    width: 100px;
+}
+
+button.file
+{
+    border: none;
+    width: 100px;
+}

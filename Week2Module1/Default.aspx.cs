@@ -15,7 +15,7 @@ namespace Week2Module1
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["handle"] != null)
-                Response.Redirect("~/MyDrive.aspx");
+                Response.Redirect("~/Drive/");
         }
 
         protected void Button1_Click(object sender, EventArgs e)

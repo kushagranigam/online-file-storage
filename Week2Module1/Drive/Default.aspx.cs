@@ -1,7 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
@@ -10,51 +15,44 @@ using System.Web.UI.WebControls;
 
 namespace Week2Module1
 {
-    public static class PathStore
-    {
-        static String path, action, root ,relative;
-        public static String currentPath
-        {
-            get { return path;}
-            set { path = value;}
-        }
-        public static String actionPath
-        {
-            get { return action;}
-            set { action = value;}
-        }
-        public static String basePath
-        {
-            get { return root;}
-            set { root = value;}
-        }
-        public static String relativePath
-        {
-            get { return relative;}
-            set { relative = value;}
-        }
-    }
-
     public partial class MyDrive : System.Web.UI.Page
     {
+        
+        protected String filter(String val)
+        {
+            val.Trim();
+            val = Server.HtmlEncode(val);
+            val.Replace("/", "");
+            return val;
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //rememberMe();
             if (Session["handle"] != null)
             {
-                String FolderName = String.Empty;
-                FolderName = Session["handle"].ToString().Replace(' ', '_');
+                SessionStore.handle = filter((String)Session["handle"]);
+                SessionStore.username = filter((String)Session["username"]);
+
+                //String FolderName = String.Empty;
+                //FolderName = Session["handle"].ToString().Replace(' ', '_');
+                byte[] folderBytes = Encoding.UTF8.GetBytes(SessionStore.username);
+                SHA1 foldercrypter = new SHA1CryptoServiceProvider();
+                byte[] cryptedFolderBytes = foldercrypter.ComputeHash(folderBytes);
+                String FolderName = BitConverter.ToString(cryptedFolderBytes).Replace("-", "").ToLower();
+
                 PathStore.basePath = PathStore.relativePath = "~/Directories/" + FolderName;
                 if (!Page.IsPostBack)
                 {
-                    PathStore.currentPath = String.Copy(Server.MapPath("~").ToString() + @"Directories\" + FolderName);
+                    PathStore.currentPath = (Server.MapPath("~") + @"\Directories\" + FolderName);
                     DirectoryInfo userFolder = new DirectoryInfo(PathStore.currentPath);
                     if (!userFolder.Exists)
                     {
                         DirectoryInfo create = new DirectoryInfo(Server.MapPath("~").ToString() + @"Directories\");
                         create.CreateSubdirectory(FolderName);
                     }
-                    createNavPan(PathStore.currentPath, null, 'n', null, 0);
+                    createNavPan(SessionStore.username+"_root", -1, null);
+                    //createNavPan(PathStore.currentPath, null, 'n', null, 0);
                 }
                 //addDirectory();
             }
@@ -200,59 +198,126 @@ namespace Week2Module1
         //    }
         //}
 
-        void createNavPan(String root, String valuePath, char isNode, String folderName, int chk)
+        //void createNavPan(String root, String valuePath, char isNode, String folderName, int chk)
+        void createNavPan(String nodename, int parentnode, String valuepath)
         {
-            if (chk == 1)
-                PathStore.relativePath += ("/" + folderName);
-            DirectoryInfo MyDirectory = new DirectoryInfo(root);
+            /*      New Code: 29/06/2017        */
+
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["database"].ConnectionString);
+            conn.Open();
+
             try
             {
-                DirectoryInfo[] MySub = MyDirectory.GetDirectories();
-                FileInfo[] MyFiles = MyDirectory.GetFiles();
+                SqlCommand getNodes = null;
+                if (parentnode == -1)
+                    getNodes = new SqlCommand("select duid, isdirectory, nodename, parentNode from directories where nodename = \'" + nodename + "\' and parentNode = " + parentnode, conn);
+                else
+                    getNodes = new SqlCommand("select duid, isdirectory, nodename, parentNode from directories where parentNode = " + parentnode + " order by isdirectory desc", conn);
+                SqlDataReader nodes = null;
+                nodes = getNodes.ExecuteReader();
 
-                foreach(DirectoryInfo folder in MySub)
+                if (nodes.HasRows)
                 {
-                    TreeNode newDirectory = new TreeNode();
-                    newDirectory.Text = folder.Name.ToString().Replace("_"," ");
-                    newDirectory.SelectAction = TreeNodeSelectAction.SelectExpand;
-                    newDirectory.ImageUrl = "~/Images/navfolder.png";
-                    newDirectory.Value = folder.Name;
-                    if(isNode != 'y')
-                        DirectoryTree.Nodes.Add(newDirectory);
-                    else
-                        DirectoryTree.FindNode(valuePath).ChildNodes.Add(newDirectory);
-                    createNavPan(root + @"\" + folder.Name, newDirectory.ValuePath, 'y', folder.Name, 1);
-                }
-
-                foreach(FileInfo file in MyFiles)
-                {
-                    TreeNode newFile = new TreeNode();
-                    newFile.Text = file.Name;
-                    newFile.SelectAction = TreeNodeSelectAction.Select;
-                    newFile.ImageUrl = "~/Images/navfile.png";
-                    newFile.Value = "File";
-                    newFile.Target = "_blank";
-                    if (isNode != 'y')
+                    if (parentnode != -1)
                     {
-                        newFile.NavigateUrl = PathStore.basePath + "/" + file.Name;
-                        DirectoryTree.Nodes.Add(newFile);
+                        while (nodes.Read())
+                        {
+                            if ((int)nodes[1] == 1)
+                            {
+                                TreeNode folder = new TreeNode();
+                                folder.Text = (String)nodes[2];
+                                folder.ImageUrl = "~/Images/navfolder.png";
+                                folder.SelectAction = TreeNodeSelectAction.None;
+                                folder.Value = (String)nodes[2];
+                                if (valuepath != null)
+                                    DirectoryTree.FindNode(valuepath).ChildNodes.Add(folder);
+                                else
+                                    DirectoryTree.Nodes.Add(folder);
+                                createNavPan((String)nodes[2], (int)nodes[0], folder.ValuePath);
+                            }
+                            else
+                            {
+                                TreeNode file = new TreeNode();
+                                file.Text = (String)nodes[2];
+                                file.ImageUrl = "~/Images/navfile.png";
+                                file.SelectAction = TreeNodeSelectAction.None;
+                                file.Value = (String)nodes[2];
+                                if (valuepath != null)
+                                    DirectoryTree.FindNode(valuepath).ChildNodes.Add(file);
+                                else
+                                    DirectoryTree.Nodes.Add(file);
+                            }
+                        }
                     }
                     else
                     {
-                        newFile.NavigateUrl = PathStore.relativePath + "/" + file.Name;
-                        DirectoryTree.FindNode(valuePath).ChildNodes.Add(newFile);
+                        nodes.Read();
+                        createNavPan((String)nodes[2], (int)nodes[0], null);
                     }
-                }
-                int rm = PathStore.relativePath.LastIndexOf("/" + folderName);
-                if (rm != -1 && chk == 1)
-                {
-                    PathStore.relativePath = PathStore.relativePath.Remove(rm, ("/" + folderName).Length);
                 }
             }
             catch (Exception err)
             {
                 Response.Redirect("~/Error.aspx?error=" + Server.UrlEncode(err.ToString()));
             }
+            finally
+            {
+                conn.Close();
+            }
+
+            /*      Old Code        */
+
+            //if (chk == 1)
+            //    PathStore.relativePath += ("/" + folderName);
+            //DirectoryInfo MyDirectory = new DirectoryInfo(root);
+            //try
+            //{
+            //    DirectoryInfo[] MySub = MyDirectory.GetDirectories();
+            //    FileInfo[] MyFiles = MyDirectory.GetFiles();
+
+            //    foreach (DirectoryInfo folder in MySub)
+            //    {
+            //        TreeNode newDirectory = new TreeNode();
+            //        newDirectory.Text = folder.Name.ToString().Replace("_", " ");
+            //        newDirectory.SelectAction = TreeNodeSelectAction.SelectExpand;
+            //        newDirectory.ImageUrl = "~/Images/navfolder.png";
+            //        newDirectory.Value = folder.Name;
+            //        if (isNode != 'y')
+            //            DirectoryTree.Nodes.Add(newDirectory);
+            //        else
+            //            DirectoryTree.FindNode(valuePath).ChildNodes.Add(newDirectory);
+            //        createNavPan(root + @"\" + folder.Name, newDirectory.ValuePath, 'y', folder.Name, 1);
+            //    }
+
+            //    foreach (FileInfo file in MyFiles)
+            //    {
+            //        TreeNode newFile = new TreeNode();
+            //        newFile.Text = file.Name;
+            //        newFile.SelectAction = TreeNodeSelectAction.Select;
+            //        newFile.ImageUrl = "~/Images/navfile.png";
+            //        newFile.Value = "File";
+            //        newFile.Target = "_blank";
+            //        if (isNode != 'y')
+            //        {
+            //            newFile.NavigateUrl = PathStore.basePath + "/" + file.Name;
+            //            DirectoryTree.Nodes.Add(newFile);
+            //        }
+            //        else
+            //        {
+            //            newFile.NavigateUrl = PathStore.relativePath + "/" + file.Name;
+            //            DirectoryTree.FindNode(valuePath).ChildNodes.Add(newFile);
+            //        }
+            //    }
+            //    int rm = PathStore.relativePath.LastIndexOf("/" + folderName);
+            //    if (rm != -1 && chk == 1)
+            //    {
+            //        PathStore.relativePath = PathStore.relativePath.Remove(rm, ("/" + folderName).Length);
+            //    }
+            //}
+            //catch (Exception err)
+            //{
+            //    Response.Redirect("~/Error.aspx?error=" + Server.UrlEncode(err.ToString()));
+            //}
         }
 
         //protected void cancel_Command(object sender, CommandEventArgs e)

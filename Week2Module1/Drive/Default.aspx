@@ -3,30 +3,119 @@
     <script src="../Scripts/jquery-3.2.1.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            $name = "Home";
+            $type = "Drive";
+            $src = "../Images/drive.png";
+            $("#renameDialog").toggle();
+
+            //initial drive loading
             $("#<%= DriveContent.ClientID %>").load("DriveLoader.aspx");
-            $(document).on("click", "img.folder", function () {
-                $("#<%= selectedItem.ClientID %>").attr("src", $(this).attr("src"));
+
+            //Setting Information Panel Content
+            $("#<%= selectedItem.ClientID %>").attr("src", "../Images/drive.png");
+            $("#<%= selectedItem.ClientID %>").attr("alt", $name);
+            $("#<%= itemType.ClientID %>").val($type);
+            $("#<%= itemName.ClientID %>").val($name);
+
+            //event for folder click
+            $(document).on("click", "button.folder", function () {
+                $("#<%= selectedItem.ClientID %>").attr("src", $(this).find("img").attr("src"));
+                $("#<%= selectedItem.ClientID %>").attr("alt", $name);
                 $("#<%= itemType.ClientID %>").val("Folder");
-                var alt = $(this).attr("alt");
-                $("#<%= itemName.ClientID %>").val(alt);
+                $("#<%= itemName.ClientID %>").val($(this).val());
             });
-            $(document).on("click", "img.file", function () {
-                $("#<%= selectedItem.ClientID %>").attr("src", $(this).attr("src"));
+
+            //event for file click
+            $(document).on("click", "button.file", function () {
+                $("#<%= selectedItem.ClientID %>").attr("src", $(this).find("img").attr("src"));
+                $("#<%= selectedItem.ClientID %>").attr("alt", $name);
                 $("#<%= itemType.ClientID %>").val("File");
-                var alt = $(this).attr("alt");
-                $("#<%= itemName.ClientID %>").val(alt);
+                $("#<%= itemName.ClientID %>").val($(this).val());
             });
-           $(document).on("dblclick", "img.folder", function () {
-                var alt = $(this).attr("alt");
+
+            //event for folder double-click
+            $(document).on("dblclick", "button.folder", function () {
+                $name = $(this).val();
+                $src = $(this).attr("src");
+
+                if ($(this).hasClass("folder"))
+                    $type = "Folder"
+                else if ($(this).hasClass("file"))
+                    $type = "File";
+                else
+                    $type = "Drive";
+
                 $("#<%= DriveContent.ClientID %>").load(
                     "DriveLoader.aspx",
                     {
                         action: 'open',
-                        argument: alt
+                        argument: $(this).val()
                     },
-                    function () {
-                    }
+                    function () { }
                 );
+            });
+
+            //event for file double-click
+            $(document).on("dblclick", "button.file", function () {
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', "DriveLoader.aspx", true);
+                xhr.responseType = 'arraybuffer';
+                xhr.onload = function () {
+                    if (this.status === 200) {
+                        var filename = "";
+                        var disposition = xhr.getResponseHeader('Content-Disposition');
+                        if (disposition && disposition.indexOf('attachment') !== -1) {
+                            var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                            var matches = filenameRegex.exec(disposition);
+                            if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+                        }
+                        var type = xhr.getResponseHeader('Content-Type');
+
+                        var blob = new Blob([this.response], { type: type });
+                        if (typeof window.navigator.msSaveBlob !== 'undefined') {
+
+                            window.navigator.msSaveBlob(blob, filename);
+                        } else {
+                            var URL = window.URL || window.webkitURL;
+                            var downloadUrl = URL.createObjectURL(blob);
+
+                            if (filename) {
+
+                                var a = document.createElement("a");
+
+                                if (typeof a.download === 'undefined') {
+                                    window.location = downloadUrl;
+                                } else {
+                                    a.href = downloadUrl;
+                                    a.download = filename;
+                                    document.body.appendChild(a);
+                                    a.click();
+                                }
+                            } else {
+                                window.location = downloadUrl;
+                            }
+
+                            setTimeout(function () { URL.revokeObjectURL(downloadUrl); }, 100);
+                        }
+                    }
+                };
+                xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                xhr.send("action=download&argument=" + $(this).val());
+            });
+
+            //event for drive click
+            $("#<%= DriveContent.ClientID %>").click(function () {
+                $("#<%= selectedItem.ClientID %>").attr("src", $src);
+                $("#<%= selectedItem.ClientID %>").attr("alt", $name);
+                $("#<%= itemType.ClientID %>").val($type);
+                $("#<%= itemName.ClientID %>").val($name);
+            });
+
+            $("#rename").click(function () {
+                var temp = $("#<%= itemType.ClientID %>").val();
+                if (temp != "Drive") {
+                    $("#renameDialog").toggle();
+                }
             });
         });
     </script>
@@ -34,7 +123,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="driveBox">
 
-        <!-- New Content: 28/06/2017 -->
+        <%-- New Content: 28/06/2017 --%>
+
         <div class="driveOptions">
             <div class="options right" id="more">
                 <img src="../Images/essentials/more-1.png" height="20px" width="20px" alt="More.."/>
@@ -53,7 +143,9 @@
             </div>
         </div>
 
-        <!-- End:: New Content: 28/06/2017 -->
+        <%-- End:: New Content: 28/06/2017 --%>
+
+
         <div class="panelContainer left" style="width: 19%;">
             <asp:Panel ID="navigationPanel" runat="server"
                 Height="500px" ScrollBars="Auto">
@@ -62,16 +154,19 @@
                     oncommand="home_Command" style="height: 16px" CssClass="left" />
                 &nbsp;<asp:LinkButton ID="LinkButton1" runat="server" oncommand="home_Command" 
                     CssClass="left">Home</asp:LinkButton>
-                <asp:TreeView ID="DirectoryTree" runat="server" 
-                    onselectednodechanged="DirectoryTree_SelectedNodeChanged" CssClass="clear" 
+                <asp:TreeView ID="DirectoryTree" runat="server" CssClass="clear" 
                     ExpandDepth="0">
                     <LeafNodeStyle ImageUrl="~/Images/navFile.png" />
+                    <Nodes>
+                        <asp:TreeNode SelectAction="None" Text="sada" Value="New Node"></asp:TreeNode>
+                    </Nodes>
                     <NodeStyle ImageUrl="~/Images/navfolder.png" />
                 </asp:TreeView>
             </asp:Panel>
         </div>
 
-        <!-- Drive View-->
+
+        <%-- Drive View--%>
         <div class="panelContainer left" 
             style="width: 60%; border-left: 1px solid black;">
             <asp:Panel ID="viewPanel" runat="server">
@@ -87,9 +182,12 @@
                     <asp:Panel ID="DriveContent" runat="server" BackImageUrl="~/Images/source.gif">
                 
                     </asp:Panel>
+                    <div id="renameDialog">
+                        New Name?
+                    </div>
                 </asp:Panel>
 
-                <!-- Option Action Bar -->
+                <%-- Option Action Bar --%>
 
                 <%--<asp:Panel ID="optionsExtended" runat="server" Height="0px" BackColor="#E4E4E4">
                     <asp:MultiView ID="OptionViews" runat="server">
@@ -149,7 +247,7 @@
                     </asp:MultiView>
                 </asp:Panel>--%>
 
-                <!-- Actions -->
+                <%-- Actions --%>
 
                 <%--<asp:Panel ID="DriveOptions" runat="server" CssClass="bottom" Height="30px">
                     <asp:ImageButton ID="uploadButton" runat="server" Width="30px" Height="30px" 
@@ -165,7 +263,7 @@
         </div>
     
 
-        <!-- Information Panel -->
+        <%-- Information Panel --%>
         <div class="panelContainer left" style="width: 19%;">
             <asp:Panel ID="infoPanel" runat="server" Height="500px">
                 <asp:Image ID="selectedItem" runat="server" Height="100px" Width="100px" 
