@@ -387,14 +387,30 @@ div.accountInfo
     overflow: auto;
 }
 
-button.folder
+div.file,div.folder
 {
     border: none;
+    width: 120px;
+    padding: 3px;
+    overflow: hidden;
+}
+
+input.label
+{
+    border: none;
+    background: transparent;
+    text-align: center;
     width: 100px;
 }
 
-button.file
+input.focus
 {
-    border: none;
+    border: 1px solid #09C1FF;
+    box-shadow: 0px 0px 3px #3ECFFF;
     width: 100px;
+}
+
+div.infoimage
+{
+    padding: 20px;
 }

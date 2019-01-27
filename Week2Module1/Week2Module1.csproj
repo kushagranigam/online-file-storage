@@ -59,6 +59,7 @@
     <Content Include="Account\ChangePasswordSuccess.aspx" />
     <Content Include="Account\Default.aspx" />
     <Content Include="Account\Register.aspx" />
+    <Content Include="Demo.ascx" />
     <Content Include="Error.aspx" />
     <Content Include="Images\calendar.png" />
     <Content Include="Images\captcha\000b2ec818acac1c0b5fa7662ec136cb27ea0283.png" />
@@ -634,6 +635,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Demo.ascx.cs">
+      <DependentUpon>Demo.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Demo.ascx.designer.cs">
+      <DependentUpon>Demo.ascx</DependentUpon>
     </Compile>
     <Compile Include="Error.aspx.cs">
       <DependentUpon>Error.aspx</DependentUpon>

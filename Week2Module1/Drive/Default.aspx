@@ -6,7 +6,7 @@
             $name = "Home";
             $type = "Drive";
             $src = "../Images/drive.png";
-            $("#renameDialog").toggle();
+            $label_value = "";
 
             //initial drive loading
             $("#<%= DriveContent.ClientID %>").load("DriveLoader.aspx");
@@ -18,24 +18,24 @@
             $("#<%= itemName.ClientID %>").val($name);
 
             //event for folder click
-            $(document).on("click", "button.folder", function () {
+            $(document).on("click", "div.folder", function () {
                 $("#<%= selectedItem.ClientID %>").attr("src", $(this).find("img").attr("src"));
-                $("#<%= selectedItem.ClientID %>").attr("alt", $name);
+                $("#<%= selectedItem.ClientID %>").attr("alt", $(this).find("input").val());
                 $("#<%= itemType.ClientID %>").val("Folder");
-                $("#<%= itemName.ClientID %>").val($(this).val());
+                $("#<%= itemName.ClientID %>").val($(this).find("input").val());
             });
 
             //event for file click
-            $(document).on("click", "button.file", function () {
+            $(document).on("click", "div.file", function () {
                 $("#<%= selectedItem.ClientID %>").attr("src", $(this).find("img").attr("src"));
-                $("#<%= selectedItem.ClientID %>").attr("alt", $name);
+                $("#<%= selectedItem.ClientID %>").attr("alt", $(this).find("input").val());
                 $("#<%= itemType.ClientID %>").val("File");
-                $("#<%= itemName.ClientID %>").val($(this).val());
+                $("#<%= itemName.ClientID %>").val($(this).find("input").val());
             });
 
             //event for folder double-click
-            $(document).on("dblclick", "button.folder", function () {
-                $name = $(this).val();
+            $(document).on("dblclick", "div.folder", function () {
+                $name = $(this).find("input").val();
                 $src = $(this).attr("src");
 
                 if ($(this).hasClass("folder"))
@@ -49,14 +49,15 @@
                     "DriveLoader.aspx",
                     {
                         action: 'open',
-                        argument: $(this).val()
+                        argument: $(this).find("input").val()
                     },
                     function () { }
                 );
+                return false;
             });
 
             //event for file double-click
-            $(document).on("dblclick", "button.file", function () {
+            $(document).on("dblclick", "div.file", function () {
                 var xhr = new XMLHttpRequest();
                 xhr.open('POST', "DriveLoader.aspx", true);
                 xhr.responseType = 'arraybuffer';
@@ -100,7 +101,8 @@
                     }
                 };
                 xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-                xhr.send("action=download&argument=" + $(this).val());
+                xhr.send("action=download&argument=" + $(this).find("img").attr("alt"));
+                return false;
             });
 
             //event for drive click
@@ -109,15 +111,39 @@
                 $("#<%= selectedItem.ClientID %>").attr("alt", $name);
                 $("#<%= itemType.ClientID %>").val($type);
                 $("#<%= itemName.ClientID %>").val($name);
+
             });
 
-            $("#rename").click(function () {
-                var temp = $("#<%= itemType.ClientID %>").val();
-                if (temp != "Drive") {
-                    $("#renameDialog").toggle();
+            $("#rename").click(renameItem);
+
+            $(document).on("keypress", "input.focus", function (e) {
+                if (e.which == 13) {
+                    $(this).attr("disabled", "disabled").removeClass("focus").addClass("label");
+                    $image = $(this).attr("id") + "-img";
+                    
+                    $("#<%= DriveContent.ClientID %>").load(
+                        "DriveLoader.aspx",
+                        {
+                            action: 'rename',
+                            argument: $("#"+$image).attr("alt"),
+                            argument_2: $(this).val()
+                        },
+                        function () { }
+                    );
+                    return false;
                 }
             });
         });
+        function renameItem() {
+            var temp = $("#<%= itemType.ClientID %>").val();
+            if (temp != "Drive") {
+                var id_temp = $("#<%= itemName.ClientID %>").val().replace(/\./g, '-').replace(/( )/g, '-');
+                id_temp = "input#" + id_temp + ".label";
+                $label_value = $(id_temp).val();
+                $(id_temp).removeAttr("disabled").removeClass("label").addClass("focus").focus().val("").val($label_value);
+            }
+            return false;
+        }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -157,9 +183,6 @@
                 <asp:TreeView ID="DirectoryTree" runat="server" CssClass="clear" 
                     ExpandDepth="0">
                     <LeafNodeStyle ImageUrl="~/Images/navFile.png" />
-                    <Nodes>
-                        <asp:TreeNode SelectAction="None" Text="sada" Value="New Node"></asp:TreeNode>
-                    </Nodes>
                     <NodeStyle ImageUrl="~/Images/navfolder.png" />
                 </asp:TreeView>
             </asp:Panel>
@@ -182,9 +205,6 @@
                     <asp:Panel ID="DriveContent" runat="server" BackImageUrl="~/Images/source.gif">
                 
                     </asp:Panel>
-                    <div id="renameDialog">
-                        New Name?
-                    </div>
                 </asp:Panel>
 
                 <%-- Option Action Bar --%>
@@ -266,25 +286,30 @@
         <%-- Information Panel --%>
         <div class="panelContainer left" style="width: 19%;">
             <asp:Panel ID="infoPanel" runat="server" Height="500px">
-                <asp:Image ID="selectedItem" runat="server" Height="100px" Width="100px" 
+                <div class="infoimage">
+                     <asp:Image ID="selectedItem" runat="server" Height="100px" Width="100px" 
                     ImageUrl="~/Images/drive.png" />
+                </div>
+                <br />
                 <br />
                 <asp:TextBox ID="itemName" runat="server" BorderStyle="None" 
-                    CssClass="itemDetails" Enabled="False" Font-Bold="True" Text="Home"></asp:TextBox>
+                    CssClass="itemDetails" Enabled="False" Font-Bold="True" Text="Home" 
+                    Height="16px" Width="121px"></asp:TextBox>
                 <br />
                 <asp:TextBox ID="itemType" runat="server" BorderStyle="None" 
                     CssClass="itemDetails" Enabled="False" Text="Drive"></asp:TextBox>
                 <br />
+                <br />
                 <asp:Panel ID="infoDescription" runat="server">
                 </asp:Panel>
-                <asp:Panel ID="itemActions" runat="server" GroupingText="Item Actions">
-                    <%--<asp:ImageButton ID="renameButton" runat="server" Width="30px" Height="30px" 
+                <%--<asp:Panel ID="itemActions" runat="server" GroupingText="Item Actions">
+                    <asp:ImageButton ID="renameButton" runat="server" Width="30px" Height="30px" 
                         AlternateText="Rename" ImageUrl="~/Images/rename.png" ToolTip="Rename" 
                         CommandName="rename" oncommand="driveButton_Command" />
                     <asp:ImageButton ID="deleteButton" runat="server" Width="30px" Height="30px" 
                         AlternateText="Delete" ImageUrl="~/Images/delete.png" ToolTip="Delete" 
-                        CommandName="delete" oncommand="driveButton_Command" />--%>
-                </asp:Panel>
+                        CommandName="delete" oncommand="driveButton_Command" />
+                </asp:Panel>--%>
             </asp:Panel>
         </div>
     </div>
